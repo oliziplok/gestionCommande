@@ -6,7 +6,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 })
 export class ClientService {
 
-  basicUrl = 'gestiondecommandes.langoni.ca';
+  basicUrl = 'http://gestiondecommandes.langoni.com';
 
   constructor(public http: HttpClient) {}
 

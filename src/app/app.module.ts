@@ -20,6 +20,7 @@ import {RouterModule, Routes} from '@angular/router';
 import { AddClientComponent } from './add-client/add-client.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AddProductComponent } from './add-product/add-product.component';
+import {HttpClientModule} from '@angular/common/http';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},
@@ -43,6 +44,7 @@ const appRoutes: Routes = [
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    HttpClientModule,
     MatFormFieldModule,
     MatCheckboxModule,
     MatDialogModule,
