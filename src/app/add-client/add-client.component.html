@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>Ajouter un Client</h2>
+<mat-dialog-content>
+  <ngForm [formGroup]="addUserForm">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Compagnie" formControlName="company">
+      <!--<mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">-->
+      <!--Please enter a valid email address-->
+      <!--</mat-error>-->
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Nom" formControlName="name">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Courriel" formControlName="email">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Condition d'achat" formControlName="buyCondition">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Adresse de facturation" formControlName="recepAddress">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Adresse de livraison" formControlName="shipAddress">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="fileInput.click()"
+            *ngIf="addUserForm.controls['logo'].value === ''">
+      <mat-icon>library_add</mat-icon>
+      <span>Ajouter une photo</span>
+      <input #fileInput type="file" accept="image/jpeg,image/jpg" (change)="onFileInput($event)" style="display:none;" />
+    </button>
+    <div class="image-container" *ngIf="addUserForm.controls['logo'].value !== ''">
+      <img [src]="addUserForm.controls['logo'].value">
+      <div class="btn-container">
+        <button mat-button (click)="deleteImage()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Annuler</button>
+      <button mat-raised-button color="primary">Ajouter</button>
+    </div>
+  </ngForm>
+</mat-dialog-content>

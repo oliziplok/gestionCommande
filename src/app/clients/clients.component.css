@@ -1,0 +1,211 @@
+.document {
+  height: 100%;
+  background: #E7E7E7;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.left-side {
+  display: flex;
+  flex-grow: 2;
+  flex-direction: column;
+}
+
+.right-side {
+  display: flex;
+  flex-grow: 10;
+}
+
+/*CSS pour la section d'ajout d'un client*/
+
+.add-client-container {
+  background: white;
+  display: flex;
+  /*flex: 1;*/
+  /*width: 100%;*/
+  /*flex-grow: 2;*/
+  align-items: center;
+  /*height: 30px;*/
+  padding: 10px 20px 10px 20px;
+  margin: 20px 10px 10px 20px;
+  justify-content: space-between;
+
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 26px;
+}
+
+.light-text {
+  margin: 0px;
+  color: #A7A7A7;
+}
+
+.add-client-container .text-add p {
+  margin: 0px;
+  display: flex;
+  color: #313131;
+}
+
+.add-client-container .button-add {
+
+}
+
+.add-client-container .button-add button{
+  /*background: linear-gradient(0deg, #74CF2C, #74CF2C), linear-gradient(0deg, #74CF2C, #74CF2C), #74CF2C;*/
+  border-radius: 26px;
+}
+
+/*Section pour le CSS de la fiche client*/
+
+.clients-listing-container {
+  background: white;
+  display: flex;
+  /*width: 100%;*/
+  flex: 1;
+  flex-direction: column;
+  /*flex-grow: 2;*/
+  align-items: center;
+  height: 30px;
+  padding: 10px 20px 10px 20px;
+  margin: 10px 10px 20px 20px;
+  justify-content: space-between;
+
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 26px;
+}
+
+.recherche-container {
+  flex: 1;
+  width: 100%;
+}
+
+.listing-container {
+  flex: 8;
+  width: 100%;
+}
+
+.listing-container .client-container {
+  display: flex;
+  flex-direction: row;
+  /*margin: 0px;*/
+}
+
+.client-image img{
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  /*border:5px solid #3f51b5;*/
+  border-radius: 50%;
+}
+
+.image-clicked {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border:5px #3f51b5;
+  border-radius: 50%;
+  background: red;
+}
+
+.client-description {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  /*align-content: center;*/
+  /*align-items: center;*/
+  justify-content: center;
+}
+
+.client-description .commandes{
+  margin: 0px;
+  color: #A7A7A7;
+}
+
+.client-description .client-name{
+  margin: 0px;
+}
+
+/*CSS client card*/
+
+.client-card-container {
+  background: white;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  /*width: 100%;*/
+  /*flex-grow: 2;*/
+  align-items: center;
+  /*height: 30px;*/
+  padding: 40px 40px 40px 40px;
+  margin: 20px 20px 20px 10px;
+  /*justify-content: space-between;*/
+
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 26px;
+}
+
+.client-card-container .card-header {
+  display: flex;
+  width: 100%;
+  align-content: flex-start;
+  align-items: flex-start;
+
+}
+
+.client-card-container .card-header h4,p {
+  margin: 0px;
+}
+
+.client-card-container .card-header .card-image img{
+  vertical-align: middle;
+  width: 100px;
+  height: 100px;
+  border:5px solid #3f51b5;
+  border-radius: 50%;
+  margin: 16px;
+}
+
+.client-card-container .card-header .edit-client {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  margin-top: 27px;
+  border-radius: 26px;
+  /*justify-content: center;*/
+}
+
+.client-card-container .card-header .edit-client button{
+  border-radius: 26px;
+  /*justify-content: center;*/
+}
+
+.client-card-container .card-info {
+  display: flex;
+  width: 100%;
+  align-content: flex-start;
+  align-items: flex-start;
+  margin-top: 16px;
+  flex-direction: column;
+}
+
+.client-card-container .card-info .detail-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 10px;
+}
+
+.client-card-container .card-info .detail-row .detail-tilte {
+  color: #A7A7A7;
+  font-weight: bold;
+  display: flex;
+}
+
+.client-card-container .card-info .detail-row .detail-tilte {
+  color: #A7A7A7;
+  font-weight: normal;
+  display: flex;
+}
+
+.detail-info {
+  color: #A7A7A7;
+}

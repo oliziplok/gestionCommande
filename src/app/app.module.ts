@@ -3,15 +3,59 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ClientsComponent } from './clients/clients.component';
+import { LoginComponent } from './login/login.component';
+import { ProductsComponent } from './products/products.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  MatButtonModule,
+  MatCheckboxModule, MatDialogModule,
+  MatFormFieldModule,
+  MatGridListModule, MatIconModule,
+  MatInputModule, MatListModule,
+  MatSelectModule
+} from '@angular/material';
+import { HeaderComponent } from './header/header.component';
+import {RouterModule, Routes} from '@angular/router';
+import { AddClientComponent } from './add-client/add-client.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { AddProductComponent } from './add-product/add-product.component';
+
+const appRoutes: Routes = [
+  {path: '', component: LoginComponent},
+  {path: 'clients', component: ClientsComponent},
+  {path: 'produits', component: ProductsComponent}
+];
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ClientsComponent,
+    LoginComponent,
+    ProductsComponent,
+    HeaderComponent,
+    AddClientComponent,
+    AddProductComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatGridListModule,
+    MatIconModule,
+    MatListModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot(appRoutes)
   ],
+  entryComponents: [AddClientComponent, AddProductComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

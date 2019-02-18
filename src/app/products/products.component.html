@@ -1,0 +1,124 @@
+<div class="document">
+  <div class="left-side">
+    <div class="add-client-container">
+      <div class="text-add">
+        <p>Ajouter un Produit</p>
+      </div>
+      <div class="button-add">
+        <button mat-raised-button color="primary" (click)="addProduct()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="clients-listing-container">
+      <div class="recherche-container">
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="Recherche">
+        </mat-form-field>
+      </div>
+      <mat-action-list class="listing-container">
+        <mat-list-item *ngFor="let product of products" style="height: 70px" (click)="onProductClick(product)">
+          <!--<div class="client-container">-->
+          <div class="client-image">
+            <img [src]="product.logo" class="image-clicked">
+          </div>
+          <div class="client-description">
+            <p class="client-name">{{product.name}}</p>
+            <p class="light-text">{{product.price}}</p>
+            <!--<p class="commandes">{{ client.nb_commande }} <span *ngIf="client.nb_commande <= 1">commande</span>-->
+              <!--<span *ngIf="client.nb_commande > 1">commandes</span></p>-->
+          </div>
+          <!--</div>-->
+          <!--<hr style="width: 100%">-->
+        </mat-list-item>
+      </mat-action-list>
+
+    </div>
+  </div>
+  <div class="right-side">
+    <div class="client-card-container">
+      <div class="card-header">
+        <div class="card-image">
+          <img [src]="productSelect.logo">
+        </div>
+        <div class="card-title">
+          <h1>{{productSelect.name}}</h1>
+          <h4>{{productSelect.price}}</h4>
+          <!--<p class="light-text">{{clientSelect.email}}</p>-->
+        </div>
+        <div class="edit-client">
+          <button mat-raised-button color="primary" (click)="editProduct = true"
+          *ngIf="!editProduct">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-raised-button color="primary" (click)="editProduct = false"
+          *ngIf="editProduct">
+            <mat-icon>save</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="card-info">
+        <h3>Détails Client</h3>
+        <div class="detail-row">
+          <div class="detail-tilte">
+             Nom:
+          </div>
+          <input matInput [value]="productSelect.name" style="width: auto" [disabled]="!editProduct">
+          <!--<div class="detail-info">-->
+          <!--{{ clientSelect.first_name }} {{ clientSelect.last_name }}-->
+          <!--</div>-->
+        </div>
+        <div class="detail-row">
+          <div class="detail-tilte">
+             Prix:
+          </div>
+          <input matInput [value]="productSelect.price" style="width: auto" [disabled]="!editProduct">
+          <!--<div class="detail-info">-->
+          <!--{{ clientSelect.email }}-->
+          <!--</div>-->
+        </div>
+        <div class="detail-row">
+          <div class="detail-tilte">
+             Origine:
+          </div>
+          <input matInput [value]="productSelect.origine" style="width: auto" [disabled]="!editProduct">
+          <!--<div class="detail-info">-->
+          <!--{{ clientSelect.buy_condition }}-->
+          <!--</div>-->
+        </div>
+        <div class="detail-row">
+          <div class="detail-tilte">
+             Codes:
+          </div>
+          <input matInput [value]="productSelect.code" style="width: auto" [disabled]="!editProduct">
+          <!--<div class="detail-info">-->
+          <!--{{ clientSelect.rec_adress }}-->
+          <!--</div>-->
+        </div>
+        <div class="detail-row">
+          <div class="detail-tilte">
+             Format:
+          </div>
+          <!--<div class="detail-info">-->
+          <!--{{ clientSelect.ship_adress }}-->
+          <!--</div>-->
+          <input matInput [value]="productSelect.format" style="width: auto" [disabled]="!editProduct">
+          <!--<mat-icon>folder</mat-icon>-->
+        </div>
+        <div class="detail-row">
+          <div class="detail-tilte">
+             Description:
+          </div>
+          <!--<div class="detail-info">-->
+          <!--{{ clientSelect.ship_adress }}-->
+          <!--</div>-->
+          <!--<input matInput [value]="clientSelect.ship_adress" style="width: auto" [disabled]="!editClient">-->
+          <!--<mat-icon>folder</mat-icon>-->
+        </div>
+        <textarea matInput [value]="productSelect.description" class="detail-row" [disabled]="!editProduct"></textarea>
+
+      </div>
+    </div>
+  </div>
+</div>
+

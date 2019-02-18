@@ -1,0 +1,110 @@
+<div class="document">
+  <div class="left-side">
+    <div class="add-client-container">
+      <div class="text-add">
+        <p>Ajouter un client</p>
+      </div>
+      <div class="button-add">
+        <button mat-raised-button color="primary" (click)="addUser()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="clients-listing-container">
+      <div class="recherche-container">
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="Recherche">
+        </mat-form-field>
+      </div>
+      <mat-action-list class="listing-container">
+        <mat-list-item *ngFor="let client of clients" style="height: 70px" (click)="onClientClick(client)">
+              <!--<div class="client-container">-->
+                <div class="client-image">
+                  <img [src]="client.logo" class="image-clicked">
+                </div>
+                <div class="client-description">
+                  <p class="client-name">{{client.name}}</p>
+                  <p class="commandes">{{ client.nb_commande }} <span *ngIf="client.nb_commande <= 1">commande</span>
+                    <span *ngIf="client.nb_commande > 1">commandes</span></p>
+                </div>
+              <!--</div>-->
+              <!--<hr style="width: 100%">-->
+        </mat-list-item>
+      </mat-action-list>
+
+    </div>
+  </div>
+  <div class="right-side">
+    <div class="client-card-container">
+      <div class="card-header">
+        <div class="card-image">
+          <img [src]="clientSelect.logo">
+        </div>
+        <div class="card-title">
+          <h1>{{clientSelect.company}}</h1>
+          <h4>{{clientSelect.name}}</h4>
+          <p class="light-text">{{clientSelect.email}}</p>
+        </div>
+        <div class="edit-client">
+          <button mat-raised-button color="primary" (click)="editClient = true"
+          *ngIf="!editClient">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-raised-button color="primary" (click)="editClient = false"
+          *ngIf="editClient">
+            <mat-icon>save</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="card-info">
+        <h3>Détails Client</h3>
+        <div class="detail-row">
+          <div class="detail-tilte">
+             Nom:
+          </div>
+          <input matInput [value]="clientSelect.name" style="width: auto" [disabled]="!editClient">
+          <!--<div class="detail-info">-->
+            <!--{{ clientSelect.first_name }} {{ clientSelect.last_name }}-->
+          <!--</div>-->
+        </div>
+        <div class="detail-row">
+          <div class="detail-tilte">
+             Courriel:
+          </div>
+          <input matInput [value]="clientSelect.email" style="width: auto" [disabled]="!editClient">
+          <!--<div class="detail-info">-->
+            <!--{{ clientSelect.email }}-->
+          <!--</div>-->
+        </div>
+        <div class="detail-row">
+          <div class="detail-tilte">
+             Condition d'achat:
+          </div>
+          <input matInput [value]="clientSelect.buy_condition" style="width: auto" [disabled]="!editClient">
+          <!--<div class="detail-info">-->
+            <!--{{ clientSelect.buy_condition }}-->
+          <!--</div>-->
+        </div>
+        <div class="detail-row">
+          <div class="detail-tilte">
+             Adresse de facturation:
+          </div>
+          <input matInput [value]="clientSelect.rec_adress" style="width: auto" [disabled]="!editClient">
+          <!--<div class="detail-info">-->
+            <!--{{ clientSelect.rec_adress }}-->
+          <!--</div>-->
+        </div>
+        <div class="detail-row">
+          <div class="detail-tilte">
+             Adresse de livraison:
+          </div>
+          <!--<div class="detail-info">-->
+            <!--{{ clientSelect.ship_adress }}-->
+          <!--</div>-->
+          <input matInput [value]="clientSelect.ship_adress" style="width: auto" [disabled]="!editClient">
+          <!--<mat-icon>folder</mat-icon>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
