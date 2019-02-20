@@ -10,7 +10,7 @@ export class AppComponent {
   title = 'foodApp';
   constructor(public router: Router) {
     this.router.events.subscribe((event) => {
-      console.log(event);
+      // console.log(event);
     });
   }
 }

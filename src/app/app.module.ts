@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ClientsComponent } from './clients/clients.component';
-import { LoginComponent } from './login/login.component';
-import { ProductsComponent } from './products/products.component';
+import { ClientsComponent } from './components/clients/clients.component';
+import { LoginComponent } from './components/login/login.component';
+import { ProductsComponent } from './components/products/products.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
@@ -15,12 +15,14 @@ import {
   MatInputModule, MatListModule,
   MatSelectModule
 } from '@angular/material';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './components/header/header.component';
 import {RouterModule, Routes} from '@angular/router';
-import { AddClientComponent } from './add-client/add-client.component';
+import { AddClientComponent } from './components/add-client/add-client.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { AddProductComponent } from './add-product/add-product.component';
+import { AddProductComponent } from './components/add-product/add-product.component';
 import {HttpClientModule} from '@angular/common/http';
+import {ClientService} from './services/client/client.service';
+import { ImageLoaderDirective } from './directives/image-loader.directive';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},
@@ -38,6 +40,7 @@ const appRoutes: Routes = [
     HeaderComponent,
     AddClientComponent,
     AddProductComponent,
+    ImageLoaderDirective,
   ],
   imports: [
     BrowserModule,
@@ -58,7 +61,9 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes)
   ],
   entryComponents: [AddClientComponent, AddProductComponent],
-  providers: [],
+  providers: [
+    ClientService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

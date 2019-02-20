@@ -17,20 +17,22 @@
         </mat-form-field>
       </div>
       <mat-action-list class="listing-container">
-        <mat-list-item *ngFor="let product of products" style="height: 70px" (click)="onProductClick(product)">
-          <!--<div class="client-container">-->
-          <div class="client-image">
-            <img [src]="product.logo" class="image-clicked">
-          </div>
-          <div class="client-description">
-            <p class="client-name">{{product.name}}</p>
-            <p class="light-text">{{product.price}}</p>
-            <!--<p class="commandes">{{ client.nb_commande }} <span *ngIf="client.nb_commande <= 1">commande</span>-->
+        <div *ngIf="products !== undefined">
+          <mat-list-item *ngFor="let product of products" style="height: 70px" (click)="onProductClick(product)">
+            <!--<div class="client-container">-->
+            <div class="client-image">
+              <img [src]="product.logo" class="image-clicked" appImageLoader="assets/imgs/logo.png">
+            </div>
+            <div class="client-description">
+              <p class="client-name">{{product.nom}}</p>
+              <p class="light-text">{{product.prix}} $</p>
+              <!--<p class="commandes">{{ client.nb_commande }} <span *ngIf="client.nb_commande <= 1">commande</span>-->
               <!--<span *ngIf="client.nb_commande > 1">commandes</span></p>-->
-          </div>
-          <!--</div>-->
-          <!--<hr style="width: 100%">-->
-        </mat-list-item>
+            </div>
+            <!--</div>-->
+            <!--<hr style="width: 100%">-->
+          </mat-list-item>
+        </div>
       </mat-action-list>
 
     </div>
@@ -39,11 +41,11 @@
     <div class="client-card-container">
       <div class="card-header">
         <div class="card-image">
-          <img [src]="productSelect.logo">
+          <img [src]="productSelect.logo" appImageLoader="assets/imgs/logo.png">
         </div>
         <div class="card-title">
-          <h1>{{productSelect.name}}</h1>
-          <h4>{{productSelect.price}}</h4>
+          <h1>{{productSelect.nom}}</h1>
+          <h4>{{productSelect.prix}} $</h4>
           <!--<p class="light-text">{{clientSelect.email}}</p>-->
         </div>
         <div class="edit-client">
@@ -63,7 +65,7 @@
           <div class="detail-tilte">
              Nom:
           </div>
-          <input matInput [value]="productSelect.name" style="width: auto" [disabled]="!editProduct">
+          <input matInput [value]="productSelect.nom" style="width: auto" [disabled]="!editProduct">
           <!--<div class="detail-info">-->
           <!--{{ clientSelect.first_name }} {{ clientSelect.last_name }}-->
           <!--</div>-->
@@ -72,7 +74,7 @@
           <div class="detail-tilte">
              Prix:
           </div>
-          <input matInput [value]="productSelect.price" style="width: auto" [disabled]="!editProduct">
+          <input matInput [value]="productSelect.prix" style="width: auto" [disabled]="!editProduct">
           <!--<div class="detail-info">-->
           <!--{{ clientSelect.email }}-->
           <!--</div>-->

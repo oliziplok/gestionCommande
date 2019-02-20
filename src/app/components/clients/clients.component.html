@@ -17,19 +17,21 @@
         </mat-form-field>
       </div>
       <mat-action-list class="listing-container">
-        <mat-list-item *ngFor="let client of clients" style="height: 70px" (click)="onClientClick(client)">
-              <!--<div class="client-container">-->
-                <div class="client-image">
-                  <img [src]="client.logo" class="image-clicked">
-                </div>
-                <div class="client-description">
-                  <p class="client-name">{{client.name}}</p>
-                  <p class="commandes">{{ client.nb_commande }} <span *ngIf="client.nb_commande <= 1">commande</span>
-                    <span *ngIf="client.nb_commande > 1">commandes</span></p>
-                </div>
-              <!--</div>-->
-              <!--<hr style="width: 100%">-->
-        </mat-list-item>
+        <div *ngIf="clients !== undefined">
+          <mat-list-item *ngFor="let client of clients" style="height: 70px" (click)="onClientClick(client)">
+            <!--<div class="client-container">-->
+            <div class="client-image">
+              <img [src]="client.logo" class="image-clicked" appImageLoader="assets/imgs/logo.png">
+            </div>
+            <div class="client-description">
+              <p class="client-name">{{client.nom}}</p>
+              <p class="commandes">{{ client.nb_commande }} <span *ngIf="client.nb_commande <= 1">commande</span>
+                <span *ngIf="client.nb_commande > 1">commandes</span></p>
+            </div>
+            <!--</div>-->
+            <!--<hr style="width: 100%">-->
+          </mat-list-item>
+        </div>
       </mat-action-list>
 
     </div>
@@ -38,12 +40,12 @@
     <div class="client-card-container">
       <div class="card-header">
         <div class="card-image">
-          <img [src]="clientSelect.logo">
+          <img [src]="clientSelect.logo" appImageLoader="assets/imgs/logo.png">
         </div>
         <div class="card-title">
-          <h1>{{clientSelect.company}}</h1>
-          <h4>{{clientSelect.name}}</h4>
-          <p class="light-text">{{clientSelect.email}}</p>
+          <h1>{{clientSelect.nom}}</h1>
+          <!--<h4>{{clientSelect.name}}</h4>-->
+          <p class="light-text">{{clientSelect.courriel}}</p>
         </div>
         <div class="edit-client">
           <button mat-raised-button color="primary" (click)="editClient = true"
@@ -62,7 +64,7 @@
           <div class="detail-tilte">
              Nom:
           </div>
-          <input matInput [value]="clientSelect.name" style="width: auto" [disabled]="!editClient">
+          <input matInput [value]="clientSelect.nom" style="width: auto" [disabled]="!editClient">
           <!--<div class="detail-info">-->
             <!--{{ clientSelect.first_name }} {{ clientSelect.last_name }}-->
           <!--</div>-->
@@ -71,7 +73,7 @@
           <div class="detail-tilte">
              Courriel:
           </div>
-          <input matInput [value]="clientSelect.email" style="width: auto" [disabled]="!editClient">
+          <input matInput [value]="clientSelect.courriel" style="width: auto" [disabled]="!editClient">
           <!--<div class="detail-info">-->
             <!--{{ clientSelect.email }}-->
           <!--</div>-->
@@ -80,7 +82,7 @@
           <div class="detail-tilte">
              Condition d'achat:
           </div>
-          <input matInput [value]="clientSelect.buy_condition" style="width: auto" [disabled]="!editClient">
+          <input matInput [value]="clientSelect.condition_achat" style="width: auto" [disabled]="!editClient">
           <!--<div class="detail-info">-->
             <!--{{ clientSelect.buy_condition }}-->
           <!--</div>-->
@@ -89,7 +91,7 @@
           <div class="detail-tilte">
              Adresse de facturation:
           </div>
-          <input matInput [value]="clientSelect.rec_adress" style="width: auto" [disabled]="!editClient">
+          <input matInput [value]="clientSelect.adresseFacturation" style="width: auto" [disabled]="!editClient">
           <!--<div class="detail-info">-->
             <!--{{ clientSelect.rec_adress }}-->
           <!--</div>-->
@@ -101,7 +103,7 @@
           <!--<div class="detail-info">-->
             <!--{{ clientSelect.ship_adress }}-->
           <!--</div>-->
-          <input matInput [value]="clientSelect.ship_adress" style="width: auto" [disabled]="!editClient">
+          <input matInput [value]="clientSelect.adresseLivraison" style="width: auto" [disabled]="!editClient">
           <!--<mat-icon>folder</mat-icon>-->
         </div>
       </div>
