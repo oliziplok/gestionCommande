@@ -22,4 +22,19 @@ export class ClientService {
       });
     });
   }
+
+  addClient(body) {
+    let params = new HttpParams();
+    params = params.append('idSupplier', '1');
+
+    return new Promise<any>((resolve, reject) => {
+      this.http.post(this.basicUrl + '/api/createClient.php', body).subscribe((res) => {
+        console.log(res);
+        resolve(res);
+      }, (err) => {
+        console.log(err);
+        reject(err);
+      });
+    });
+  }
 }

@@ -16,7 +16,7 @@
   margin-right: 16px;
 }
 
-.link-container a {
+.link-container a,button {
   display: flex;
   font-family: Montserrat, sans-serif;
   font-style: normal;
@@ -27,4 +27,10 @@
   font-weight: bold;
 
   color: #A7A7A7;
+}
+
+button {
+  border: none;
+  padding: 0px;
+  cursor: pointer;
 }

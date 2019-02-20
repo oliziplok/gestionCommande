@@ -41,7 +41,7 @@
     </div>
     <div mat-dialog-actions align="end">
       <button mat-button mat-dialog-close>Annuler</button>
-      <button mat-raised-button color="primary">Ajouter</button>
+      <button mat-raised-button color="primary" [disabled]="!addProductForm.valid">Ajouter</button>
     </div>
   </ngForm>
 </mat-dialog-content>
