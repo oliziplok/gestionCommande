@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ClientsComponent } from './components/clients/clients.component';
-import { LoginComponent } from './components/login/login.component';
-import { ProductsComponent } from './components/products/products.component';
+import { ClientsComponent } from './fournisseur-layout/components/clients/clients.component';
+import { LoginComponent } from './login-layout/login/login.component';
+import { ProductsComponent } from './fournisseur-layout/components/products/products.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
@@ -15,19 +15,51 @@ import {
   MatInputModule, MatListModule,
   MatSelectModule
 } from '@angular/material';
-import { HeaderComponent } from './components/header/header.component';
+import { HeaderComponent } from './fournisseur-layout/components/header/header.component';
 import {RouterModule, Routes} from '@angular/router';
-import { AddClientComponent } from './components/add-client/add-client.component';
+import { AddClientComponent } from './fournisseur-layout/components/add-client/add-client.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { AddProductComponent } from './components/add-product/add-product.component';
+import { AddProductComponent } from './fournisseur-layout/components/add-product/add-product.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ClientService} from './services/client/client.service';
 import { ImageLoaderDirective } from './directives/image-loader.directive';
+import {AuthGuardService} from './services/authGuard/auth-guard.service';
+import { FournisseurLayoutComponent } from './fournisseur-layout/fournisseur-layout.component';
+import { LoginLayoutComponent } from './login-layout/login-layout.component';
 
 const appRoutes: Routes = [
-  {path: '', component: LoginComponent},
-  {path: 'clients', component: ClientsComponent},
-  {path: 'produits', component: ProductsComponent}
+  {
+    path: '',
+    component: FournisseurLayoutComponent,
+    canActivate: [AuthGuardService],
+    children: [
+      {
+        path: '',
+        component: ClientsComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'clients',
+        component: ClientsComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'produits',
+        component: ProductsComponent,
+        canActivate: [AuthGuardService]
+      }
+    ]
+  },
+  {
+    path: '',
+    component: LoginLayoutComponent,
+    children: [
+      {
+        path: 'login',
+        component: LoginComponent
+      }
+    ]
+  }
 ];
 
 
@@ -41,6 +73,8 @@ const appRoutes: Routes = [
     AddClientComponent,
     AddProductComponent,
     ImageLoaderDirective,
+    FournisseurLayoutComponent,
+    LoginLayoutComponent,
   ],
   imports: [
     BrowserModule,

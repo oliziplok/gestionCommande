@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AddClientComponent} from '../add-client/add-client.component';
 import {MatDialog} from '@angular/material';
 import {AddProductComponent} from '../add-product/add-product.component';
-import {ProduitService} from '../../services/produit/produit.service';
+import {ProduitService} from '../../../services/produit/produit.service';
 
 @Component({
   selector: 'app-products',

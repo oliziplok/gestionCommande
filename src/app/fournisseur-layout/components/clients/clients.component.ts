@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {AddClientComponent} from '../add-client/add-client.component';
-import {ClientService} from '../../services/client/client.service';
+import {ClientService} from '../../../services/client/client.service';
 
 @Component({
   selector: 'app-clients',
