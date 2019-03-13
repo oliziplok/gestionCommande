@@ -1,0 +1,36 @@
+.header-container {
+  /*position: absolute;*/
+  width: 100%;
+  height: 65px;
+  left: 0px;
+  top: 0px;
+  background: white;
+  display: flex;
+  align-items: center;
+}
+
+.link-container {
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 1;
+  margin-right: 16px;
+}
+
+.link-container a,button {
+  display: flex;
+  font-family: Montserrat, sans-serif;
+  font-style: normal;
+  line-height: normal;
+  font-size: 16px;
+  text-decoration: none;
+  margin: 0px 10px 0px 10px;
+  font-weight: bold;
+
+  color: #A7A7A7;
+}
+
+button {
+  border: none;
+  padding: 0px;
+  cursor: pointer;
+}

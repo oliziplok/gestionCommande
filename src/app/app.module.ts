@@ -30,6 +30,7 @@ import { ClientHomeComponent } from './client-layout/client-home/client-home.com
 import { FournisseurHomeComponent } from './fournisseur-layout/components/fournisseur-home/fournisseur-home.component';
 import {ClientLayoutComponent} from './client-layout/client-layout.component';
 import {RoleGuardService} from './services/roleGuard/role-guard.service';
+import { ClientHeaderComponent } from './client-layout/client-header/client-header.component';
 
 const appRoutes: Routes = [
   {
@@ -109,7 +110,8 @@ const appRoutes: Routes = [
     LoginLayoutComponent,
     ClientHomeComponent,
     FournisseurHomeComponent,
-    ClientLayoutComponent
+    ClientLayoutComponent,
+    ClientHeaderComponent
   ],
   imports: [
     BrowserModule,
