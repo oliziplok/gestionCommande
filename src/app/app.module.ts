@@ -26,28 +26,60 @@ import { ImageLoaderDirective } from './directives/image-loader.directive';
 import {AuthGuardService} from './services/authGuard/auth-guard.service';
 import { FournisseurLayoutComponent } from './fournisseur-layout/fournisseur-layout.component';
 import { LoginLayoutComponent } from './login-layout/login-layout.component';
+import { ClientHomeComponent } from './client-layout/client-home/client-home.component';
+import { FournisseurHomeComponent } from './fournisseur-layout/components/fournisseur-home/fournisseur-home.component';
+import {ClientLayoutComponent} from './client-layout/client-layout.component';
+import {RoleGuardService} from './services/roleGuard/role-guard.service';
 
 const appRoutes: Routes = [
   {
     path: '',
     component: FournisseurLayoutComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'fournisseur',
+    component: FournisseurLayoutComponent,
     canActivate: [AuthGuardService],
     children: [
       {
-        path: '',
-        component: ClientsComponent,
-        canActivate: [AuthGuardService]
+        path: 'home',
+        component: FournisseurHomeComponent,
+        canActivate: [RoleGuardService],
+        data: {
+          expectedRole: 'fournisseur'
+        }
       },
       {
         path: 'clients',
         component: ClientsComponent,
-        canActivate: [AuthGuardService]
+        canActivate: [RoleGuardService],
+        data: {
+          expectedRole: 'fournisseur'
+        }
       },
       {
         path: 'produits',
         component: ProductsComponent,
-        canActivate: [AuthGuardService]
+        canActivate: [RoleGuardService],
+        data: {
+          expectedRole: 'fournisseur'
+        }
       }
+    ]
+  },
+  {
+    path: 'client',
+    component: ClientLayoutComponent,
+    canActivate: [AuthGuardService],
+    children: [
+      {
+        path: 'home',
+        component: ClientHomeComponent,
+        canActivate: [RoleGuardService],
+        data: {
+          expectedRole: 'client'
+        }      }
     ]
   },
   {
@@ -75,6 +107,9 @@ const appRoutes: Routes = [
     ImageLoaderDirective,
     FournisseurLayoutComponent,
     LoginLayoutComponent,
+    ClientHomeComponent,
+    FournisseurHomeComponent,
+    ClientLayoutComponent
   ],
   imports: [
     BrowserModule,

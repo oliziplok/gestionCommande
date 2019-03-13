@@ -7,6 +7,8 @@ import {Router} from '@angular/router';
 export class AuthenticationService {
 
   private islogIn = false;
+  private role = 'client';
+  // private role = 'fournisseur';
 
   constructor(private router: Router) { }
 
@@ -14,11 +16,19 @@ export class AuthenticationService {
     return this.islogIn;
   }
 
+  getRole() {
+    return this.role;
+  }
+
   logIn(username, password) {
     if (username === '' && password === '') {
       console.log(username, password);
       this.islogIn = true;
-      this.router.navigate(['']);
+      if (this.role === 'client') {
+        this.router.navigate(['client/home']);
+      } else if (this.role === 'fournisseur') {
+        this.router.navigate(['fournisseur/home']);
+      }
     }
   }
 
