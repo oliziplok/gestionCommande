@@ -8,8 +8,8 @@ import {AuthenticationService} from '../../services/authentication/authenticatio
 })
 export class LoginComponent implements OnInit {
 
-  usrn = '';
-  password = '';
+  usrn;
+  password;
 
   constructor(private authService: AuthenticationService) { }
 

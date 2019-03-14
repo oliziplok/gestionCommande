@@ -17,6 +17,8 @@ export class RoleGuardService implements CanActivate{
 
     const expectedRole = route.data.expectedRole;
     console.log(expectedRole);
+    console.log(this.role);
+    console.log(this.auth.isAuthenticated());
 
     if (!this.auth.isAuthenticated() || expectedRole !== this.role) {
       console.log('Bad Role');

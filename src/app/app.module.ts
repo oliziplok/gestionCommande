@@ -8,8 +8,9 @@ import { LoginComponent } from './login-layout/login/login.component';
 import { ProductsComponent } from './fournisseur-layout/components/products/products.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  MatAccordion,
   MatButtonModule,
-  MatCheckboxModule, MatDialogModule,
+  MatCheckboxModule, MatDialogModule, MatExpansionModule, MatExpansionPanel,
   MatFormFieldModule,
   MatGridListModule, MatIconModule,
   MatInputModule, MatListModule,
@@ -128,6 +129,7 @@ const appRoutes: Routes = [
     MatGridListModule,
     MatIconModule,
     MatListModule,
+    MatExpansionModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],

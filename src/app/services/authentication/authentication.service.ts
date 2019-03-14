@@ -6,9 +6,10 @@ import {Router} from '@angular/router';
 })
 export class AuthenticationService {
 
-  private islogIn = false;
-  private role = 'client';
-  // private role = 'fournisseur';
+  // private islogIn = false;
+  private islogIn = true;
+  // private role = 'client';
+  private role = 'fournisseur';
 
   constructor(private router: Router) { }
 
@@ -21,15 +22,21 @@ export class AuthenticationService {
   }
 
   logIn(username, password) {
-    if (username === '' && password === '') {
+    // if (username === '' && password === '') {
       console.log(username, password);
-      this.islogIn = true;
+      if (username === 'client') {
+        this.role = 'client';
+        this.islogIn = true;
+      } else if (username === 'fournisseur') {
+        this.role = 'fournisseur';
+        this.islogIn = true;
+      }
       if (this.role === 'client') {
         this.router.navigate(['client/home']);
       } else if (this.role === 'fournisseur') {
         this.router.navigate(['fournisseur/home']);
       }
-    }
+    // }
   }
 
   logOut() {
