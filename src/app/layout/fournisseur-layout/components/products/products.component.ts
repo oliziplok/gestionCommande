@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AddClientComponent} from '../add-client/add-client.component';
 import {MatDialog} from '@angular/material';
 import {AddProductComponent} from '../add-product/add-product.component';
-import {ProduitService} from '../../../services/produit/produit.service';
+import {SupplierService} from '../../../../services/supplier/supplier.service';
 
 @Component({
   selector: 'app-products',
@@ -42,7 +42,7 @@ export class ProductsComponent implements OnInit {
   productSelect = {};
   editProduct = false;
 
-  constructor(public dialog: MatDialog, public productService: ProduitService) {
+  constructor(public dialog: MatDialog, public productService: SupplierService) {
     // this.productSelect = this.products[0];
   }
 

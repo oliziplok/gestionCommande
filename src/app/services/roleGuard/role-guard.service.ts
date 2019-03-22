@@ -10,10 +10,12 @@ export class RoleGuardService implements CanActivate{
   role;
 
   constructor(public auth: AuthenticationService) {
-    this.role = this.auth.getRole();
+
   }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
+
+    this.role = this.auth.getRole();
 
     const expectedRole = route.data.expectedRole;
     console.log(expectedRole);

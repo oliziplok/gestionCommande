@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ClientService} from '../../../services/client/client.service';
+import {ClientService} from '../../../../services/client/client.service';
+import {SupplierService} from '../../../../services/supplier/supplier.service';
 
 @Component({
   selector: 'app-add-client',
@@ -11,7 +12,7 @@ export class AddClientComponent implements OnInit {
 
   addUserForm: FormGroup;
 
-  constructor(public formBuilder: FormBuilder, private clientService: ClientService) {
+  constructor(public formBuilder: FormBuilder, private supplierService: SupplierService) {
 
     this.addUserForm = formBuilder.group({
       company: ['', Validators.compose([Validators.required])],
@@ -49,7 +50,7 @@ export class AddClientComponent implements OnInit {
   }
 
   onAdd() {
-    let body: any = {};
+    const body: any = {};
 
     body.nom = this.addUserForm.controls.name.value;
     body.courriel = this.addUserForm.controls.email.value;
@@ -58,7 +59,7 @@ export class AddClientComponent implements OnInit {
     body.adresseLivraison = this.addUserForm.controls.shipAddress.value;
     body.fkidSupplier = 1;
 
-    this.clientService.addClient(body).then((res) => {
+    this.supplierService.addClient(body).then((res) => {
       console.log(res);
     }).catch((err) => {
       console.log(err);

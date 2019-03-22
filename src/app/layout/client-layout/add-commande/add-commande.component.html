@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>Passer une commande</h2>
+<mat-dialog-content>
+  <ngForm [formGroup]="addCommande">
+    <mat-form-field>
+      <mat-select placeholder="Produits" formArrayName="produits" multiple
+                  [disabled]="listingProduits === undefined">
+        <mat-select-trigger>
+          {{addCommande.controls['produits'].value ? addCommande.controls['produits'].value[0]?.name : ''}}
+          <span *ngIf="addCommande.controls['produits'].value?.length > 1" class="example-additional-selection">
+            (+{{addCommande.controls['produits'].value.length - 1}}
+            {{addCommande.controls['produits'].value?.length === 2 ? 'autre' : 'autres'}})
+          </span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let produit of listingProduits" [value]="produit" (blur)="addItem(produit)">
+          {{produit.name}} ({{produit.format}})
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-list *ngIf="addCommande.controls['produits'].value.length !== 0">
+      <div formArrayName="produits">
+        <div *ngFor="let produit of addCommande.get('produits').controls; let i = index">
+          <div [formGroupName]="i">
+            <mat-list-item class="produit-commande-container">
+              <span style="display: flex">{{produit.controls.name.value}} ({{produit.controls.format.value}})</span>
+              <mat-form-field class="qtt-field">
+                <input matInput placeholder="Qtt" formControlName="qtt" type="number">
+              </mat-form-field>
+            </mat-list-item>
+          </div>
+          <mat-divider></mat-divider>
+        </div>
+      </div>
+    </mat-list>
+    <div mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Annuler</button>
+      <button mat-raised-button color="primary" (click)="onAdd()" [disabled]="!addCommande.valid">Ajouter</button>
+      <mat-spinner class="spinner-onpost" *ngIf="showLoader"></mat-spinner>
+    </div>
+  </ngForm>
+</mat-dialog-content>

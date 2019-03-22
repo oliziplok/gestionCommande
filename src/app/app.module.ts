@@ -3,35 +3,36 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ClientsComponent } from './fournisseur-layout/components/clients/clients.component';
-import { LoginComponent } from './login-layout/login/login.component';
-import { ProductsComponent } from './fournisseur-layout/components/products/products.component';
+import { ClientsComponent } from './layout/fournisseur-layout/components/clients/clients.component';
+import { LoginComponent } from './layout/login-layout/login/login.component';
+import { ProductsComponent } from './layout/fournisseur-layout/components/products/products.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  MatAccordion,
-  MatButtonModule,
-  MatCheckboxModule, MatDialogModule, MatExpansionModule, MatExpansionPanel,
+  MatButtonModule, MatCardModule,
+  MatCheckboxModule, MatDialogModule, MatDividerModule, MatExpansionModule,
   MatFormFieldModule,
   MatGridListModule, MatIconModule,
-  MatInputModule, MatListModule,
-  MatSelectModule
+  MatInputModule, MatListModule, MatProgressSpinnerModule,
+  MatSelectModule, MatSnackBarModule
 } from '@angular/material';
-import { HeaderComponent } from './fournisseur-layout/components/header/header.component';
+import { HeaderComponent } from './layout/fournisseur-layout/components/header/header.component';
 import {RouterModule, Routes} from '@angular/router';
-import { AddClientComponent } from './fournisseur-layout/components/add-client/add-client.component';
+import { AddClientComponent } from './layout/fournisseur-layout/components/add-client/add-client.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { AddProductComponent } from './fournisseur-layout/components/add-product/add-product.component';
+import { AddProductComponent } from './layout/fournisseur-layout/components/add-product/add-product.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ClientService} from './services/client/client.service';
 import { ImageLoaderDirective } from './directives/image-loader.directive';
 import {AuthGuardService} from './services/authGuard/auth-guard.service';
-import { FournisseurLayoutComponent } from './fournisseur-layout/fournisseur-layout.component';
-import { LoginLayoutComponent } from './login-layout/login-layout.component';
-import { ClientHomeComponent } from './client-layout/client-home/client-home.component';
-import { FournisseurHomeComponent } from './fournisseur-layout/components/fournisseur-home/fournisseur-home.component';
-import {ClientLayoutComponent} from './client-layout/client-layout.component';
+import { FournisseurLayoutComponent } from './layout/fournisseur-layout/fournisseur-layout.component';
+import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
+import { ClientHomeComponent } from './layout/client-layout/client-home/client-home.component';
+import { FournisseurHomeComponent } from './layout/fournisseur-layout/components/fournisseur-home/fournisseur-home.component';
+import {ClientLayoutComponent} from './layout/client-layout/client-layout.component';
 import {RoleGuardService} from './services/roleGuard/role-guard.service';
-import { ClientHeaderComponent } from './client-layout/client-header/client-header.component';
+import { ClientHeaderComponent } from './layout/client-layout/client-header/client-header.component';
+import { AddCommandeComponent } from './layout/client-layout/add-commande/add-commande.component';
+import { ClientUsersComponent } from './layout/client-layout/client-users/client-users.component';
 
 const appRoutes: Routes = [
   {
@@ -112,7 +113,9 @@ const appRoutes: Routes = [
     ClientHomeComponent,
     FournisseurHomeComponent,
     ClientLayoutComponent,
-    ClientHeaderComponent
+    ClientHeaderComponent,
+    AddCommandeComponent,
+    ClientUsersComponent
   ],
   imports: [
     BrowserModule,
@@ -130,10 +133,14 @@ const appRoutes: Routes = [
     MatIconModule,
     MatListModule,
     MatExpansionModule,
+    MatCardModule,
+    MatDividerModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  entryComponents: [AddClientComponent, AddProductComponent],
+  entryComponents: [AddClientComponent, AddProductComponent, AddCommandeComponent],
   providers: [
     ClientService
   ],

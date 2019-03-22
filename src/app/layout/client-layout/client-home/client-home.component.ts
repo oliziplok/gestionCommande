@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {AddClientComponent} from '../../fournisseur-layout/components/add-client/add-client.component';
+import {MatDialog, MatSnackBar} from '@angular/material';
+import {AddCommandeComponent} from '../add-commande/add-commande.component';
 
 @Component({
   selector: 'app-client-home',
@@ -42,9 +45,23 @@ export class ClientHomeComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(public dialog: MatDialog, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
+  }
+
+  addCommande() {
+    const dialogRef = this.dialog.open(AddCommandeComponent, {
+      width: '50%'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if (result) {
+        console.log('trigger');
+        this.snackBar.open('Commande bien passée', 'Ok', {duration: 2000});
+      }
+    });
   }
 
 }

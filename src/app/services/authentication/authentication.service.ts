@@ -8,8 +8,8 @@ export class AuthenticationService {
 
   // private islogIn = false;
   private islogIn = true;
-  // private role = 'client';
-  private role = 'fournisseur';
+  private role = 'client';
+  // private role = 'fournisseur';
 
   constructor(private router: Router) { }
 
@@ -31,6 +31,7 @@ export class AuthenticationService {
         this.role = 'fournisseur';
         this.islogIn = true;
       }
+      console.log(this.role);
       if (this.role === 'client') {
         this.router.navigate(['client/home']);
       } else if (this.role === 'fournisseur') {

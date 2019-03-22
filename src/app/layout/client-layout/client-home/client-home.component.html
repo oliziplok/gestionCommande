@@ -1,6 +1,16 @@
 <div class="page-container">
   <div class="listing-header">
     <h1>Commandes Passées</h1>
+    <div class="add-commande-header">
+      <div class="add-commande-header-text">
+        <p>Passer une commande</p>
+      </div>
+      <div class="button-add">
+        <button mat-raised-button color="primary" (click)="addCommande()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
   </div>
   <div class="listing-container">
     <mat-accordion>

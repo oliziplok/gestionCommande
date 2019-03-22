@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {AddClientComponent} from '../add-client/add-client.component';
-import {ClientService} from '../../../services/client/client.service';
+import {ClientService} from '../../../../services/client/client.service';
+import {SupplierService} from '../../../../services/supplier/supplier.service';
 
 @Component({
   selector: 'app-clients',
@@ -44,12 +45,12 @@ export class ClientsComponent implements OnInit {
   clientSelect = {};
   editClient:boolean = false;
 
-  constructor(public dialog: MatDialog, public clientService: ClientService) {
+  constructor(public dialog: MatDialog, public supplierService: SupplierService) {
     // this.clientSelect = this.clients[0];
   }
 
   ngOnInit() {
-    this.clientService.getClients().then((res) => {
+    this.supplierService.getSupplierClientsListing().then((res) => {
       console.log(res);
       this.clients = [];
       for (const client of res) {
