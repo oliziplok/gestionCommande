@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Ajouter un utilisateur</h2>
+<mat-dialog-content>
+  <ngForm [formGroup]="addUser">
+    <mat-form-field>
+      <input matInput placeholder="Nom d'utilisateur" formControlName="user">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Mot de passe" formControlName="password">
+    </mat-form-field>
+    <div mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Annuler</button>
+      <button mat-raised-button color="primary" (click)="onAdd()" [disabled]="!addUser.valid">Ajouter</button>
+      <mat-spinner class="spinner-onpost" *ngIf="showLoader"></mat-spinner>
+    </div>
+  </ngForm>
+</mat-dialog-content>

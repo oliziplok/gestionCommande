@@ -33,6 +33,8 @@ import {RoleGuardService} from './services/roleGuard/role-guard.service';
 import { ClientHeaderComponent } from './layout/client-layout/client-header/client-header.component';
 import { AddCommandeComponent } from './layout/client-layout/add-commande/add-commande.component';
 import { ClientUsersComponent } from './layout/client-layout/client-users/client-users.component';
+import { ClientUtilisateursComponent } from './layout/client-layout/utilisateurs/client-utilisateurs.component';
+import { ClientAddUserComponent } from './layout/client-layout/client-add-user/client-add-user.component';
 
 const appRoutes: Routes = [
   {
@@ -82,7 +84,15 @@ const appRoutes: Routes = [
         canActivate: [RoleGuardService],
         data: {
           expectedRole: 'client'
-        }      }
+        }      },
+      {
+        path: 'users',
+        component: ClientUtilisateursComponent,
+        canActivate: [RoleGuardService],
+        data: {
+          expectedRole: 'client'
+        }
+      }
     ]
   },
   {
@@ -115,7 +125,9 @@ const appRoutes: Routes = [
     ClientLayoutComponent,
     ClientHeaderComponent,
     AddCommandeComponent,
-    ClientUsersComponent
+    ClientUsersComponent,
+    ClientUtilisateursComponent,
+    ClientAddUserComponent
   ],
   imports: [
     BrowserModule,
@@ -140,7 +152,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  entryComponents: [AddClientComponent, AddProductComponent, AddCommandeComponent],
+  entryComponents: [AddClientComponent, AddProductComponent, AddCommandeComponent, ClientAddUserComponent],
   providers: [
     ClientService
   ],

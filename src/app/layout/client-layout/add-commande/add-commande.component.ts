@@ -45,7 +45,7 @@ export class AddCommandeComponent implements OnInit {
       id: idR,
       name: nameR,
       format: formatR,
-      qtt: ['', Validators.compose([Validators.required, Validators.pattern('^[0-255]$')])]
+      qtt: ['', Validators.compose([Validators.required])]
     });
   }
 

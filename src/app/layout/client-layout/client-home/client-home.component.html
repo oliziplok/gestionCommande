@@ -14,17 +14,18 @@
   </div>
   <div class="listing-container">
     <mat-accordion>
-      <mat-expansion-panel *ngFor="let commande of commandes">
+      <mat-expansion-panel *ngFor="let commande of commandes" [hideToggle]="commande.status === '1'">
         <mat-expansion-panel-header>
           <mat-panel-title>
             {{commande.client}}
           </mat-panel-title>
           <mat-panel-description>
-            {{commande.date_commande}}
+            {{commande.date}}
           </mat-panel-description>
           <mat-panel-description>
-            #{{commande.numero_commande}}
+            #{{commande.id}}
           </mat-panel-description>
+          <mat-icon *ngIf="commande.status === '1'" color="primary">done</mat-icon>
         </mat-expansion-panel-header>
         <div *ngFor="let produit of commande.produits" class="product-row">
           <p>{{produit.nom}}</p>
@@ -37,7 +38,9 @@
         </div>
         <mat-action-row>
           <button mat-button color="light" (click)="prevStep()">Imprimer</button>
-          <button mat-button color="primary" (click)="nextStep()">Terminer</button>
+          <button mat-button color="primary" (click)="nextStep()" [disabled]="commande.status === '1'">
+            Modifier
+          </button>
         </mat-action-row>
       </mat-expansion-panel>
     </mat-accordion>
