@@ -6,8 +6,8 @@ import {Router} from '@angular/router';
 })
 export class AuthenticationService {
 
-  // private islogIn = false;
-  private islogIn = true;
+  private islogIn = false;
+  // private islogIn = true;
   private role = 'client';
   // private role = 'fournisseur';
 

@@ -16,23 +16,14 @@ export class ClientService {
 
   constructor(public http: HttpClient) {}
 
-  getListingClientsUsers() {
-    return new Promise<any>((resolve, reject) => {
-      this.http.get(this.basicUrl + '/api/createClient.php').subscribe((res) => {
-        console.log(res);
-        resolve(res);
-      }, (err) => {
-        console.log(err);
-        reject(err);
-      });
-    });
-  }
-
-  getClientUser(): Observable<any> {
+  getListingClientsUsers(): Observable<any> {
     if(this.dataStore.users.length === 0) {
       this.fetchClientUser();
     }
     return this.usersSubscriber.asObservable();
+  }
+
+  getClientUser() {
   }
 
   private fetchClientUser() {
@@ -75,7 +66,7 @@ export class ClientService {
   }
 
   getClientOrdersListing(): Observable<any> {
-    if(this.dataStore.orders.length === 0) {
+    if (this.dataStore.orders.length === 0) {
       this.fetchOrders();
     }
     return this.ordersSubscriber.asObservable();

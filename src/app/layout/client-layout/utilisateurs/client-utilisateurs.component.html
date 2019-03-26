@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="listing-container">
-    <mat-accordion>
+    <mat-accordion *ngIf="users !== undefined && users.length !== 0; else nothingToShow">
       <mat-expansion-panel *ngFor="let user of users">
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -41,6 +41,9 @@
         </mat-action-row>
       </mat-expansion-panel>
     </mat-accordion>
+    <ng-template #nothingToShow>
+      <p>Aucun utilisateur à afficher</p>
+    </ng-template>
   </div>
 </div>
 

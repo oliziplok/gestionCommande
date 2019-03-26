@@ -23,6 +23,7 @@
   margin: 20px;
   display: flex;
   flex: 1;
+  justify-content: center;
 }
 
 mat-accordion {

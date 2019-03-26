@@ -47,14 +47,14 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.productService.getProduit().then((res) => {
+    this.productService.getSupplierProducts().subscribe((res) => {
       console.log(res);
       this.products = [];
       for (const client of res) {
         this.products.push(client[0]);
       }
       this.productSelect = this.products[0];
-    }).catch((err) => {
+    }, (err) => {
       console.log(err);
     });
   }

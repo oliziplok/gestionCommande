@@ -3,6 +3,8 @@ import {AddCommandeComponent} from '../add-commande/add-commande.component';
 import {ClientAddUserComponent} from '../client-add-user/client-add-user.component';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {ClientService} from '../../../services/client/client.service';
+import {Router} from '@angular/router';
+import {SupplierService} from '../../../services/supplier/supplier.service';
 
 @Component({
   selector: 'app-utilisateurs',
@@ -13,14 +15,24 @@ export class ClientUtilisateursComponent implements OnInit {
 
   users = [];
 
-  constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private clientProvider: ClientService) { }
+  constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private clientProvider: ClientService,
+              private router: Router, private supplierService: SupplierService) { }
 
   ngOnInit() {
-    this.clientProvider.getClientUser().subscribe((res) => {
-      this.users = res;
-    }, (err) => {
-      console.log(err);
-    });
+    console.log(this.router.url);
+    if (this.router.url.includes('fournisseur')) {
+      this.supplierService.getSupplierUsersListing().subscribe((res) => {
+        this.users = res;
+      }, (err) => {
+        console.log(err);
+      });
+    } else if (this.router.url.includes('client')) {
+      this.clientProvider.getListingClientsUsers().subscribe((res) => {
+        this.users = res;
+      }, (err) => {
+        console.log(err);
+      });
+    }
   }
 
   addUser() {

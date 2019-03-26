@@ -41,7 +41,7 @@ export class ClientsComponent implements OnInit {
   //     logo: 'https://az826390.vo.msecnd.net/cdn/media/data/default/new-product-large.ashx',
   //     nb_commande: 5
   //   }];
-  clients;
+  clients = [];
   clientSelect = {};
   editClient:boolean = false;
 
@@ -50,14 +50,13 @@ export class ClientsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.supplierService.getSupplierClientsListing().then((res) => {
+    this.supplierService.getSupplierClientsListing().subscribe((res) => {
       console.log(res);
-      this.clients = [];
       for (const client of res) {
         this.clients.push(client[0]);
       }
       this.clientSelect = this.clients[0];
-    }).catch((err) => {
+    }, (err) => {
       console.log(err);
     });
   }

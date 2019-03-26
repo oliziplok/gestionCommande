@@ -3,7 +3,7 @@
     <h1>Commandes Reçus</h1>
   </div>
   <div class="listing-container">
-    <mat-accordion>
+    <mat-accordion *ngIf="commandes !== undefined && commandes.length !== 0; else nothingToShow">
       <mat-expansion-panel *ngFor="let commande of commandes" hideToggle>
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -32,5 +32,8 @@
         </mat-action-row>
       </mat-expansion-panel>
     </mat-accordion>
+    <ng-template #nothingToShow>
+      <p>Aucune commande à afficher</p>
+    </ng-template>
   </div>
 </div>

@@ -70,6 +70,14 @@ const appRoutes: Routes = [
         data: {
           expectedRole: 'fournisseur'
         }
+      },
+      {
+        path: 'users',
+        component: ClientUtilisateursComponent,
+        canActivate: [RoleGuardService],
+        data: {
+          expectedRole: 'fournisseur'
+        }
       }
     ]
   },
