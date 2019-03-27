@@ -38,7 +38,7 @@ export class ProductsComponent implements OnInit {
   //     format: 'caisse',
   //     description: 'Voici une description'
   //   }];
-  products;
+  products = [];
   productSelect = {};
   editProduct = false;
 
@@ -49,10 +49,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.productService.getSupplierProducts().subscribe((res) => {
       console.log(res);
-      this.products = [];
-      for (const client of res) {
-        this.products.push(client[0]);
-      }
+      this.products = res;
       this.productSelect = this.products[0];
     }, (err) => {
       console.log(err);
