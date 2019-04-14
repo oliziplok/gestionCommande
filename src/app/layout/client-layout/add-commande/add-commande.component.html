@@ -12,7 +12,7 @@
           </span>
         </mat-select-trigger>
         <mat-option *ngFor="let produit of listingProduits" [value]="produit" (blur)="addItem(produit)">
-          {{produit.name}} ({{produit.format}})
+          {{produit.nom}} <span *ngIf="produit.format !== null">({{produit.format}})</span>
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -21,7 +21,9 @@
         <div *ngFor="let produit of addCommande.get('produits').controls; let i = index">
           <div [formGroupName]="i">
             <mat-list-item class="produit-commande-container">
-              <span style="display: flex">{{produit.controls.name.value}} ({{produit.controls.format.value}})</span>
+              <span style="display: flex">{{produit.controls.name.value}}
+                <span *ngIf="produit.controls.format.value !== null">({{produit.controls.format.value}})</span>
+              </span>
               <mat-form-field class="qtt-field">
                 <input matInput placeholder="Qtt" formControlName="qtt" type="number">
               </mat-form-field>
@@ -31,6 +33,10 @@
         </div>
       </div>
     </mat-list>
+    <mat-form-field class="example-full-width" *ngIf="addCommande.get('produits').controls.length > 0">
+      <input matInput #message maxlength="256" placeholder="Commentaire" formControlName="commentaire">
+      <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+    </mat-form-field>
     <div mat-dialog-actions align="end">
       <button mat-button mat-dialog-close>Annuler</button>
       <button mat-raised-button color="primary" (click)="onAdd()" [disabled]="!addCommande.valid">Ajouter</button>

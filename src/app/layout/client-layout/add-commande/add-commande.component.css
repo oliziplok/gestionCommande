@@ -3,14 +3,17 @@
 }
 
 .qtt-field {
-  width: 20px;
-  display: flex;
+  width: 80px;
 }
 
 .produit-commande-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+:host /deep/ .mat-list-item-content {
+  justify-content: space-between !important;
 }
 
 .image-container {
@@ -46,4 +49,9 @@
   left: 0;
   right: 0;
   margin: auto;
+}
+
+.example-full-width {
+  margin-top: 30px;
+  width: 100%;
 }

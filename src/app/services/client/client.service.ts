@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
+import {reject} from 'q';
 
 @Injectable()
 export class ClientService {
@@ -39,29 +40,13 @@ export class ClientService {
 
   getProductsAvailableForUser(): Promise<any> {
     return new Promise<any>((resolve, reject) => {
-      setTimeout(() => {
-        const listing = [{
-            id: 1,
-            name: 'Produit 1',
-            logo: 'http://www.bite.co.nz/images/recipes/Generic_Tomatoes1.jpg?width=1200&height=800&upscale=false',
-            price: 34.99,
-            origine: 'France',
-            code: 'ty56wk7',
-            format: 'caisse',
-            description: 'Voici une description'
-          },
-          {
-            id: 2,
-            name: 'Produit 2',
-            logo: 'http://www.bite.co.nz/images/recipes/Generic_Tomatoes1.jpg?width=1200&height=800&upscale=false',
-            price: 60.00,
-            origine: 'France',
-            code: 'ty56wk7',
-            format: 'cassot',
-            description: 'Voici une description bla bla bla'
-          }];
-        resolve(listing);
-      }, 2000);
+      this.http.get(this.basicUrl + '/api/client/' + this.userId + '/product').subscribe((res: any) => {
+        resolve(res);
+        console.log(res);
+      }, (err) => {
+        reject(err);
+        console.log(err);
+      });
     });
   }
 
@@ -82,11 +67,17 @@ export class ClientService {
     });
   }
 
-  addOrder(commande) {
+  createNewUser(body) {
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve();
-      }, 2000);
+      this.http.post(this.basicUrl + '/api/client/' + this.userId + '/user', body).subscribe((res:any) => {
+        this.dataStore.orders = res;
+        this.ordersSubscriber.next(res);
+        console.log(res);
+        resolve(res);
+      }, (err) => {
+        reject(err);
+        console.log(err);
+      });
     });
   }
 }

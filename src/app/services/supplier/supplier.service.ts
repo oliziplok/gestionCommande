@@ -141,4 +141,39 @@ export class SupplierService {
       });
     });
   }
+
+  addOrder(commande): Promise<any> {
+    console.log(commande);
+    console.log(this.transformOrderForAPI(commande));
+    const body = this.transformOrderForAPI(commande);
+
+    return new Promise<any>((resolve, reject) => {
+      this.http.post(this.basicUrl + '/api/client/' + this.supplierId + '/order', body).subscribe((res:any) => {
+        this.dataStore.orders = res;
+        this.orderSubscriber.next(res);
+        resolve(res);
+        console.log(res);
+      }, (err) => {
+        reject(err);
+        console.log(err);
+      });
+    });
+  }
+
+  transformOrderForAPI(order) {
+    const actualOrder = order.value;
+    const body: any = {
+      produits: [],
+      fkidClient: actualOrder.fkidClient
+    };
+    body.commentaire = actualOrder.commentaire;
+    for (const produitFromOrder of actualOrder.produits) {
+      const produitToPush = {
+        fkidProduct: produitFromOrder.idProduct,
+        quantite: produitFromOrder.qtt
+      };
+      body.produits.push(produitToPush);
+    }
+    return body;
+  }
 }

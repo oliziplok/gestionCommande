@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ClientService} from '../../../services/client/client.service';
 import {MatDialogRef} from '@angular/material';
+import {SupplierService} from '../../../services/supplier/supplier.service';
+import {AuthenticationService} from '../../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-add-commande',
@@ -11,11 +13,11 @@ import {MatDialogRef} from '@angular/material';
 export class AddCommandeComponent implements OnInit {
 
   addCommande: FormGroup;
-  listingProduits;
+  listingProduits = [];
   showLoader = false;
 
-  constructor(public formBuilder: FormBuilder, public clientSupplier: ClientService,
-              private dialogRef: MatDialogRef<AddCommandeComponent>) {
+  constructor(public formBuilder: FormBuilder, public clientSupplier: ClientService, private supplierService: SupplierService,
+              private dialogRef: MatDialogRef<AddCommandeComponent>, private authService: AuthenticationService) {
     this.addCommande = formBuilder.group({
       // company: ['', Validators.compose([Validators.required])],
       // name: ['', Validators.compose([Validators.required])],
@@ -24,7 +26,9 @@ export class AddCommandeComponent implements OnInit {
       // recepAddress: ['', Validators.compose([Validators.required])],
       // shipAddress: ['', Validators.compose([Validators.required])],
       // logo: [''],
-      produits: this.formBuilder.array([], Validators.required)
+      fkidClient: [this.authService.getID()],
+      produits: this.formBuilder.array([], Validators.required),
+      commentaire: ['']
     });
   }
 
@@ -42,7 +46,7 @@ export class AddCommandeComponent implements OnInit {
 
   createItem(idR, nameR, formatR): FormGroup {
     return this.formBuilder.group({
-      id: idR,
+      idProduct: idR,
       name: nameR,
       format: formatR,
       qtt: ['', Validators.compose([Validators.required])]
@@ -54,24 +58,26 @@ export class AddCommandeComponent implements OnInit {
 
     const items = this.addCommande.get('produits') as FormArray;
     for (let i = 0; i < items.controls.length; i++) {
-      if (items.controls[i].value.id === produitRecu.id) {
+      console.log(items.controls[i].value.idProduct);
+      console.log(produitRecu);
+      if (items.controls[i].value.idProduct === produitRecu.idProduct) {
         items.removeAt(i);
         return;
       }
     }
-    items.push(this.createItem(produitRecu.id, produitRecu.name, produitRecu.format));
+    items.push(this.createItem(produitRecu.idProduct, produitRecu.nom, produitRecu.format));
     console.log(this.addCommande.controls.produits);
   }
 
   onAdd() {
     console.log(this.addCommande);
     this.showLoader = true;
-    this.clientSupplier.addOrder(this.addCommande).then(() => {
+    this.supplierService.addOrder(this.addCommande).then(() => {
       this.showLoader = false;
       this.dialogRef.close(true);
     }).catch((err) => {
       console.log(err);
+      this.showLoader = false;
     });
   }
-
 }

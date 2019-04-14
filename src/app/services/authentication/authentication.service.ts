@@ -9,6 +9,7 @@ export class AuthenticationService {
   private islogIn = false;
   // private islogIn = true;
   private role = 'client';
+  private id = 1;
   // private role = 'fournisseur';
 
   constructor(private router: Router) { }
@@ -19,6 +20,10 @@ export class AuthenticationService {
 
   getRole() {
     return this.role;
+  }
+
+  getID() {
+    return this.id;
   }
 
   logIn(username, password) {
