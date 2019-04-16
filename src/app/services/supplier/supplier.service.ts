@@ -148,7 +148,7 @@ export class SupplierService {
     const body = this.transformOrderForAPI(commande);
 
     return new Promise<any>((resolve, reject) => {
-      this.http.post(this.basicUrl + '/api/client/' + this.supplierId + '/order', body).subscribe((res:any) => {
+      this.http.post(this.basicUrl + '/api/supplier/' + this.supplierId + '/order', body).subscribe((res:any) => {
         this.dataStore.orders = res;
         this.orderSubscriber.next(res);
         resolve(res);
@@ -175,5 +175,22 @@ export class SupplierService {
       body.produits.push(produitToPush);
     }
     return body;
+  }
+
+  editOrder(commande): Promise<any> {
+    const body = {};
+
+    return new Promise((resolve, reject) => {
+      this.http.put(this.basicUrl + '/api/supplier/' + this.supplierId + '/order/' + commande.id, body)
+        .subscribe((res: any) => {
+        this.dataStore.orders = res;
+        this.orderSubscriber.next(res);
+        console.log(res);
+        resolve(res);
+      }, (err) => {
+        reject(err);
+        console.log(err);
+      });
+    });
   }
 }

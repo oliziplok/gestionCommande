@@ -20,7 +20,7 @@ import {RouterModule, Routes} from '@angular/router';
 import { AddClientComponent } from './layout/fournisseur-layout/components/add-client/add-client.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AddProductComponent } from './layout/fournisseur-layout/components/add-product/add-product.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ClientService} from './services/client/client.service';
 import { ImageLoaderDirective } from './directives/image-loader.directive';
 import {AuthGuardService} from './services/authGuard/auth-guard.service';
@@ -35,6 +35,8 @@ import { AddCommandeComponent } from './layout/client-layout/add-commande/add-co
 import { ClientUsersComponent } from './layout/client-layout/client-users/client-users.component';
 import { ClientUtilisateursComponent } from './layout/client-layout/utilisateurs/client-utilisateurs.component';
 import { ClientAddUserComponent } from './layout/client-layout/client-add-user/client-add-user.component';
+import { ListeProduitsClientComponent } from './layout/client-layout/liste-produits-client/liste-produits-client.component';
+import {TokenInterceptorService} from './services/tokenInterceptor/token-interceptor.service';
 
 const appRoutes: Routes = [
   {
@@ -100,6 +102,14 @@ const appRoutes: Routes = [
         data: {
           expectedRole: 'client'
         }
+      },
+      {
+        path: 'products',
+        component: ListeProduitsClientComponent,
+        canActivate: [RoleGuardService],
+        data: {
+          expectedRole: 'client'
+        }
       }
     ]
   },
@@ -135,7 +145,8 @@ const appRoutes: Routes = [
     AddCommandeComponent,
     ClientUsersComponent,
     ClientUtilisateursComponent,
-    ClientAddUserComponent
+    ClientAddUserComponent,
+    ListeProduitsClientComponent
   ],
   imports: [
     BrowserModule,
@@ -162,7 +173,12 @@ const appRoutes: Routes = [
   ],
   entryComponents: [AddClientComponent, AddProductComponent, AddCommandeComponent, ClientAddUserComponent],
   providers: [
-    ClientService
+    ClientService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -48,4 +48,24 @@ export class ClientUtilisateursComponent implements OnInit {
     });
   }
 
+  onDeleteUser(user) {
+    this.clientProvider.deleteUser(user.id);
+  }
+
+  updatePassWord(userToEdit) {
+    const dialogRef = this.dialog.open(ClientAddUserComponent, {
+      width: '50%',
+      data: {
+        user: userToEdit
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if (result) {
+        this.snackBar.open('Utilisateur ajouté', 'Ok', {duration: 2000});
+      }
+    });
+  }
+
 }

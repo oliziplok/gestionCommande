@@ -1,21 +1,21 @@
 <div class="document">
   <div class="left-side">
-    <div class="add-client-container">
-      <div class="text-add">
-        <p>Ajouter un Produit</p>
-      </div>
-      <div class="button-add">
-        <button mat-raised-button color="primary" (click)="addProduct()">
-          <mat-icon>add</mat-icon>
-        </button>
-      </div>
-    </div>
+    <!--<div class="add-client-container">-->
+      <!--<div class="text-add">-->
+        <!--<p>Ajouter un Produit</p>-->
+      <!--</div>-->
+      <!--<div class="button-add">-->
+        <!--<button mat-raised-button color="primary" (click)="addProduct()">-->
+          <!--<mat-icon>add</mat-icon>-->
+        <!--</button>-->
+      <!--</div>-->
+    <!--</div>-->
     <div class="clients-listing-container">
-      <div class="recherche-container">
-        <mat-form-field style="width: 100%">
-          <input matInput placeholder="Recherche">
-        </mat-form-field>
-      </div>
+      <!--<div class="recherche-container">-->
+        <!--<mat-form-field style="width: 100%">-->
+          <!--<input matInput placeholder="Recherche">-->
+        <!--</mat-form-field>-->
+      <!--</div>-->
       <mat-action-list class="listing-container">
         <div *ngIf="products !== undefined">
           <mat-list-item *ngFor="let product of products" style="height: 70px" (click)="onProductClick(product)">
@@ -49,16 +49,16 @@
             <h4>{{productSelect.prix}} $</h4>
             <!--<p class="light-text">{{clientSelect.email}}</p>-->
           </div>
-          <div class="edit-client">
-            <button mat-raised-button color="primary" (click)="editProduct = true"
-                    *ngIf="!editProduct">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-raised-button color="primary" (click)="editProduct = false"
-                    *ngIf="editProduct">
-              <mat-icon>save</mat-icon>
-            </button>
-          </div>
+          <!--<div class="edit-client">-->
+            <!--<button mat-raised-button color="primary" (click)="editProduct = true"-->
+                    <!--*ngIf="!editProduct">-->
+              <!--<mat-icon>edit</mat-icon>-->
+            <!--</button>-->
+            <!--<button mat-raised-button color="primary" (click)="editProduct = false"-->
+                    <!--*ngIf="editProduct">-->
+              <!--<mat-icon>save</mat-icon>-->
+            <!--</button>-->
+          <!--</div>-->
         </div>
         <div class="card-info">
           <h3>Détails Produit</h3>

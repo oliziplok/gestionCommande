@@ -37,8 +37,8 @@
           {{commande.commentaire}}
         </div>
         <mat-action-row>
-          <button mat-button color="light" (click)="prevStep()">Imprimer</button>
-          <button mat-button color="primary" (click)="nextStep()" [disabled]="commande.status === '1'">
+          <button mat-button color="light" (click)="print()" [disabled]="commande.status !== '1'">Imprimer</button>
+          <button mat-button color="primary" (click)="editOrder(commande)" [disabled]="commande.status === '1'">
             Modifier
           </button>
         </mat-action-row>

@@ -67,9 +67,40 @@ export class ClientService {
     });
   }
 
-  createNewUser(body) {
+  createNewUser(body): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.post(this.basicUrl + '/api/client/' + this.userId + '/user', body).subscribe((res:any) => {
+        this.dataStore.orders = res;
+        this.ordersSubscriber.next(res);
+        console.log(res);
+        resolve(res);
+      }, (err) => {
+        reject(err);
+        console.log(err);
+      });
+    });
+  }
+
+  deleteUser(userId): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.delete(this.basicUrl + '/api/client/' + this.userId + '/user/' + userId).subscribe((res:any) => {
+        this.dataStore.orders = res;
+        this.ordersSubscriber.next(res);
+        console.log(res);
+        resolve(res);
+      }, (err) => {
+        reject(err);
+        console.log(err);
+      });
+    });
+  }
+
+  changePassword(user, formUser): Promise<any> {
+    const body = {};
+
+    return new Promise((resolve, reject) => {
+      this.http.put(this.basicUrl + '/api/client/' + this.userId + '/user/' + user.id, body)
+        .subscribe((res: any) => {
         this.dataStore.orders = res;
         this.ordersSubscriber.next(res);
         console.log(res);

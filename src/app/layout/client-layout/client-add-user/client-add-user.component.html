@@ -1,7 +1,8 @@
-<h2 mat-dialog-title>Ajouter un utilisateur</h2>
+<h2 mat-dialog-title *ngIf="!edit">Ajouter un utilisateur</h2>
+<h2 mat-dialog-title *ngIf="edit">Modifier mot de passe</h2>
 <mat-dialog-content>
   <ngForm [formGroup]="addUser">
-    <mat-form-field>
+    <mat-form-field *ngIf="!edit">
       <input matInput placeholder="Nom d'utilisateur" formControlName="username">
     </mat-form-field>
     <br>
@@ -10,7 +11,10 @@
     </mat-form-field>
     <div mat-dialog-actions align="end">
       <button mat-button mat-dialog-close>Annuler</button>
-      <button mat-raised-button color="primary" (click)="onAdd()" [disabled]="!addUser.valid">Ajouter</button>
+      <button mat-raised-button color="primary" (click)="onAdd()" [disabled]="!addUser.valid"
+      *ngIf="!edit">Ajouter</button>
+      <button mat-raised-button color="primary" (click)="onChangePassword()" [disabled]="!addUser.valid"
+      *ngIf="edit">Modifier</button>
       <mat-spinner class="spinner-onpost" *ngIf="showLoader"></mat-spinner>
     </div>
   </ngForm>
