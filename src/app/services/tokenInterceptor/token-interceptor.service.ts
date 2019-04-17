@@ -11,8 +11,10 @@ import {tap, catchError, mergeMap} from 'rxjs/operators';
 export class TokenInterceptorService implements HttpInterceptor {
 
   // actuallyRefreshing = false;
+  private token;
 
-  constructor(private authService: AuthenticationService) { }
+  constructor(private authService: AuthenticationService) {
+  }
 
   logOut() {
     this.authService.logOut();
@@ -20,11 +22,20 @@ export class TokenInterceptorService implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log(request);
-    let headers = new HttpHeaders();
-    // headers = headers.set('Authorization', 'Bearer Test');
-    headers = headers.set('Access-Control-Allow-Headers', '*');
-    const newReq = request.clone({headers});
-    console.log(newReq);
+    this.token = this.authService.getToken();
+    console.log(this.token);
+
+    let newReq = null;
+    if (request.url !== 'https://gestiondecommandes.langoni.ca/oauth/token.php') {
+      console.log('trigger');
+      let headers = new HttpHeaders();
+      headers = headers.set('Authorization', 'Bearer ' + this.token);
+      // headers = headers.set('Access-Control-Allow-Headers', '*');
+      newReq = request.clone({headers});
+      console.log(newReq);
+    } else {
+      newReq = request.clone();
+    }
 
     return next.handle(newReq).pipe(tap(
       (res: any) => {

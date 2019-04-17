@@ -32,6 +32,10 @@ export class AuthenticationService {
     return this.id;
   }
 
+  getToken() {
+    return this.actualToken;
+  }
+
   logInAuth(usernameR, passwordR) {
     console.log('Login trigger');
 
@@ -79,15 +83,20 @@ export class AuthenticationService {
           //   reject(err);
           // });
 
-          if (this.role === 'client') {
-            this.router.navigate(['client/home']);
-          } else if (this.role === 'fournisseur') {
-            this.router.navigate(['fournisseur/home']);
-          }
+          console.log(this.role);
+          this.islogIn = true;
+
+          // if (this.role === 'client') {
+          //   console.log("trigger");
+          //   this.router.navigate(['client/home']);
+          // } else if (this.role === 'fournisseur') {
+          //   this.router.navigate(['fournisseur/home']);
+          // }
+          resolve('client');
         }, (err) => {
           console.log('Trigger error login: ', err);
           // this._autorize.next(false);
-          // reject(err);
+          reject(err);
         });
 
     });

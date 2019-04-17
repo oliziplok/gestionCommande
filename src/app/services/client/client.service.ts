@@ -58,7 +58,7 @@ export class ClientService {
   }
 
   private fetchOrders() {
-    this.http.get(this.basicUrl + '/api/client/' + this.userId + '/order').subscribe((res:any) => {
+    this.http.get(this.basicUrl + '/api/client/' + this.userId + '/order/0').subscribe((res:any) => {
       this.dataStore.orders = res;
       this.ordersSubscriber.next(res);
       console.log(res);
