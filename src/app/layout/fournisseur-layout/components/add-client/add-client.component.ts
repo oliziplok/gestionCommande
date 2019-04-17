@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ClientService} from '../../../../services/client/client.service';
 import {SupplierService} from '../../../../services/supplier/supplier.service';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-add-client',
@@ -10,17 +11,19 @@ import {SupplierService} from '../../../../services/supplier/supplier.service';
 })
 export class AddClientComponent implements OnInit {
 
+  showLoader = false;
   addUserForm: FormGroup;
 
-  constructor(public formBuilder: FormBuilder, private supplierService: SupplierService) {
+  constructor(public formBuilder: FormBuilder, private supplierService: SupplierService,
+              private dialogRef: MatDialogRef<AddClientComponent>) {
 
     this.addUserForm = formBuilder.group({
-      company: ['', Validators.compose([Validators.required])],
+      compagny: ['', Validators.compose([Validators.required])],
       name: ['', Validators.compose([Validators.required])],
       email: ['', Validators.compose([Validators.required])],
-      buyCondition: ['', Validators.compose([Validators.required])],
-      recepAddress: ['', Validators.compose([Validators.required])],
-      shipAddress: ['', Validators.compose([Validators.required])],
+      buy_condition: ['', Validators.compose([Validators.required])],
+      rec_adress: ['', Validators.compose([Validators.required])],
+      ship_adress: ['', Validators.compose([Validators.required])],
       logo: ['']
     });
   }
@@ -50,18 +53,22 @@ export class AddClientComponent implements OnInit {
   }
 
   onAdd() {
-    const body: any = {};
+    // const body: any = {};
+    //
+    // body.nom = this.addUserForm.controls.name.value;
+    // body.courriel = this.addUserForm.controls.email.value;
+    // body.condition_achat = this.addUserForm.controls.buyCondition.value;
+    // body.adresseFacturation = this.addUserForm.controls.recepAddress.value;
+    // body.adresseLivraison = this.addUserForm.controls.shipAddress.value;
+    // body.fkidSupplier = 1;
 
-    body.nom = this.addUserForm.controls.name.value;
-    body.courriel = this.addUserForm.controls.email.value;
-    body.condition_achat = this.addUserForm.controls.buyCondition.value;
-    body.adresseFacturation = this.addUserForm.controls.recepAddress.value;
-    body.adresseLivraison = this.addUserForm.controls.shipAddress.value;
-    body.fkidSupplier = 1;
-
-    this.supplierService.addClient(body).then((res) => {
+    this.showLoader = true;
+    this.supplierService.addClient(this.addUserForm.value).then((res) => {
       console.log(res);
+      this.showLoader = false;
+      this.dialogRef.close();
     }).catch((err) => {
+      this.showLoader = false;
       console.log(err);
     });
   }

@@ -70,4 +70,14 @@ export class ProductsComponent implements OnInit {
     });
   }
 
+  onProductDelete() {
+    this.productService.deleteProduct(this.productSelect);
+    this.editProduct = false;
+  }
+
+  onEdit() {
+    this.productService.editProduct(this.productSelect);
+    this.editProduct = false;
+  }
+
 }

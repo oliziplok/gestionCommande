@@ -5,6 +5,7 @@ import {MatDialog, MatSnackBar} from '@angular/material';
 import {ClientService} from '../../../services/client/client.service';
 import {Router} from '@angular/router';
 import {SupplierService} from '../../../services/supplier/supplier.service';
+import {AuthenticationService} from '../../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-utilisateurs',
@@ -14,9 +15,12 @@ import {SupplierService} from '../../../services/supplier/supplier.service';
 export class ClientUtilisateursComponent implements OnInit {
 
   users = [];
+  userType = null;
 
   constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private clientProvider: ClientService,
-              private router: Router, private supplierService: SupplierService) { }
+              private router: Router, private supplierService: SupplierService, private auth: AuthenticationService) {
+    this.userType = this.auth.getRole();
+  }
 
   ngOnInit() {
     console.log(this.router.url);
@@ -37,7 +41,10 @@ export class ClientUtilisateursComponent implements OnInit {
 
   addUser() {
     const dialogRef = this.dialog.open(ClientAddUserComponent, {
-      width: '50%'
+      width: '50%',
+      data: {
+        userType: this.userType
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -49,14 +56,19 @@ export class ClientUtilisateursComponent implements OnInit {
   }
 
   onDeleteUser(user) {
-    this.clientProvider.deleteUser(user.id);
+    if (this.userType === 'client') {
+      this.clientProvider.deleteUser(user.id);
+    } else {
+      this.supplierService.deleteUser(user.id);
+    }
   }
 
   updatePassWord(userToEdit) {
     const dialogRef = this.dialog.open(ClientAddUserComponent, {
       width: '50%',
       data: {
-        user: userToEdit
+        user: userToEdit,
+        userType: this.userType
       }
     });
 

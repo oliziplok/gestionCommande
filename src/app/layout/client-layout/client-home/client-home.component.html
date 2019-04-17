@@ -20,7 +20,7 @@
             {{commande.client}}
           </mat-panel-title>
           <mat-panel-description>
-            {{commande.date}}
+            {{commande.orderDate}}
           </mat-panel-description>
           <mat-panel-description>
             #{{commande.id}}
@@ -29,7 +29,7 @@
         </mat-expansion-panel-header>
         <div *ngFor="let produit of commande.produits" class="product-row">
           <p>{{produit.nom}}</p>
-          <p>{{produit.quantite}}</p>
+          <p>{{produit.Qty}}</p>
         </div>
         <div *ngIf="commande.commentaire !== undefined || commande.commentaire !== ''"
              class="commande-commentaire">
@@ -37,7 +37,7 @@
           {{commande.commentaire}}
         </div>
         <mat-action-row>
-          <button mat-button color="light" (click)="print()" [disabled]="commande.status !== '1'">Imprimer</button>
+          <button mat-button color="light" (click)="print(commande)" [disabled]="commande.status !== '1'">Imprimer</button>
           <button mat-button color="primary" (click)="editOrder(commande)" [disabled]="commande.status === '1'">
             Modifier
           </button>

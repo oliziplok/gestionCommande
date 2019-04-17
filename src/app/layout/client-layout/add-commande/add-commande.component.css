@@ -3,6 +3,7 @@
 }
 
 .qtt-field {
+  /*display: flex;*/
   width: 80px;
 }
 

@@ -54,7 +54,11 @@
                     *ngIf="!editProduct">
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-raised-button color="primary" (click)="editProduct = false"
+            <button mat-raised-button color="warn" (click)="onProductDelete()"
+                    *ngIf="editProduct">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-raised-button color="primary" (click)="onEdit()"
                     *ngIf="editProduct">
               <mat-icon>save</mat-icon>
             </button>
@@ -66,7 +70,7 @@
             <div class="detail-tilte">
                Nom:
             </div>
-            <input matInput [value]="productSelect.nom" style="width: auto" [disabled]="!editProduct">
+            <input matInput [(ngModel)]="productSelect.nom" style="width: auto" [disabled]="!editProduct">
             <!--<div class="detail-info">-->
             <!--{{ clientSelect.first_name }} {{ clientSelect.last_name }}-->
             <!--</div>-->
@@ -75,7 +79,7 @@
             <div class="detail-tilte">
                Prix:
             </div>
-            <input matInput [value]="productSelect.prix" style="width: auto" [disabled]="!editProduct">
+            <input matInput [(ngModel)]="productSelect.prix" style="width: auto" [disabled]="!editProduct">
             <!--<div class="detail-info">-->
             <!--{{ clientSelect.email }}-->
             <!--</div>-->
@@ -84,7 +88,7 @@
             <div class="detail-tilte">
                Origine:
             </div>
-            <input matInput [value]="productSelect.origine" style="width: auto" [disabled]="!editProduct">
+            <input matInput [(ngModel)]="productSelect.origine" style="width: auto" [disabled]="!editProduct">
             <!--<div class="detail-info">-->
             <!--{{ clientSelect.buy_condition }}-->
             <!--</div>-->
@@ -93,7 +97,7 @@
             <div class="detail-tilte">
                Codes:
             </div>
-            <input matInput [value]="productSelect.code" style="width: auto" [disabled]="!editProduct">
+            <input matInput [(ngModel)]="productSelect.code" style="width: auto" [disabled]="!editProduct">
             <!--<div class="detail-info">-->
             <!--{{ clientSelect.rec_adress }}-->
             <!--</div>-->
@@ -105,7 +109,7 @@
             <!--<div class="detail-info">-->
             <!--{{ clientSelect.ship_adress }}-->
             <!--</div>-->
-            <input matInput [value]="productSelect.format" style="width: auto" [disabled]="!editProduct">
+            <input matInput [(ngModel)]="productSelect.format" style="width: auto" [disabled]="!editProduct">
             <!--<mat-icon>folder</mat-icon>-->
           </div>
           <div class="detail-row">
@@ -118,7 +122,7 @@
             <!--<input matInput [value]="clientSelect.ship_adress" style="width: auto" [disabled]="!editClient">-->
             <!--<mat-icon>folder</mat-icon>-->
           </div>
-          <textarea matInput [value]="productSelect.description" class="detail-row" [disabled]="!editProduct"></textarea>
+          <textarea matInput [(ngModel)]="productSelect.description" class="detail-row" [disabled]="!editProduct"></textarea>
 
         </div>
       </div>

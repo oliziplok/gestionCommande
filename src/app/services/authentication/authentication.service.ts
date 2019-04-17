@@ -10,11 +10,12 @@ export class AuthenticationService {
   basicUrl = 'https://gestiondecommandes.langoni.ca';
   clientID = 'gestionCMD';
   clientSecret = 'inf5001';
+  private user: any = {};
   private islogIn = false;
   private actualToken = '';
   private actualRefreshToken = '';
   // private islogIn = true;
-  private role = 'client';
+  private role = 'fournisseur';
   private id = 1;
   // private role = 'fournisseur';
 
@@ -34,6 +35,34 @@ export class AuthenticationService {
 
   getToken() {
     return this.actualToken;
+  }
+
+  getUserFkId() {
+    return this.user.id;
+  }
+
+  getUserUniqueId() {
+    return this.user.uId;
+  }
+
+  fetchUser() {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.basicUrl + '/api/user').subscribe((res) => {
+        console.log(res);
+        if (res[0].fkidClient !== null) {
+          this.user.id = res[0].fkidClient;
+          this.role = 'client';
+        } else {
+          this.role = 'fournisseur';
+          this.user.id = res[0].fkidSupplier;
+        }
+        this.user.uId = res[0].id;
+        resolve(this.role);
+      }, (err) => {
+        console.log(err);
+        reject(err);
+      });
+    });
   }
 
   logInAuth(usernameR, passwordR) {
@@ -56,10 +85,6 @@ export class AuthenticationService {
       this.http.post(this.basicUrl + '/oauth/token.php', bodyTest, {headers: headers})
         .subscribe((res: any) => {
 
-          // let expireTime = new Date();
-          // expireTime.setSeconds(expireTime.getSeconds() + res.expires_in);
-          // console.log(expireTime);
-
           const data: any = res;
           const token = data.access_token;
           const refresh_token = data.refresh_token;
@@ -68,57 +93,18 @@ export class AuthenticationService {
           this.actualToken = token;
           this.actualRefreshToken = refresh_token;
 
-          const promises: Promise<any>[] = [];
-
-          // promises.push(this.storage.set('token', token));
-          // promises.push(this.storage.set('refresh_token', refresh_token));
-          // promises.push(this.storage.set('expiration', expireTime));
-
-          // Promise.all(promises).then((values) => {
-          //   console.log('Values from login', values);
-          //   this._autorize.next(true);
-          //   resolve(values[0]);
-          // }).catch((err) => {
-          //   this._autorize.next(false);
-          //   reject(err);
-          // });
-
-          console.log(this.role);
-          this.islogIn = true;
-
-          // if (this.role === 'client') {
-          //   console.log("trigger");
-          //   this.router.navigate(['client/home']);
-          // } else if (this.role === 'fournisseur') {
-          //   this.router.navigate(['fournisseur/home']);
-          // }
-          resolve('client');
+          this.fetchUser().then(() => {
+            this.islogIn = true;
+            resolve(this.role);
+          }).catch((err) => {
+            reject(err);
+          });
         }, (err) => {
           console.log('Trigger error login: ', err);
-          // this._autorize.next(false);
           reject(err);
         });
 
     });
-  }
-
-  logIn(username, password) {
-    // if (username === '' && password === '') {
-      console.log(username, password);
-      if (username === 'client') {
-        this.role = 'client';
-        this.islogIn = true;
-      } else if (username === 'fournisseur') {
-        this.role = 'fournisseur';
-        this.islogIn = true;
-      }
-      console.log(this.role);
-      if (this.role === 'client') {
-        this.router.navigate(['client/home']);
-      } else if (this.role === 'fournisseur') {
-        this.router.navigate(['fournisseur/home']);
-      }
-    // }
   }
 
   refreshToken(): Promise<any> {
@@ -138,31 +124,14 @@ export class AuthenticationService {
           .subscribe((res: any) => {
             console.log('Result from refresh ', res);
 
-            // let expireTime = new Date();
-            // expireTime.setSeconds(expireTime.getSeconds() + res.expires_in);
-
             const data: any = res;
             const token = data.access_token;
             const refresh_token = data.refresh_token;
 
             this.actualToken = token;
             this.actualRefreshToken = refresh_token;
+            resolve(this.actualToken);
 
-            // let promises:Promise<any>[] = [];
-            //
-            // promises.push(this.storage.set('token', token));
-            // promises.push(this.storage.set('refresh_token', refresh_token2));
-            // promises.push(this.storage.set('expiration', expireTime));
-
-            // Promise.all(promises).then((values) => {
-            //   console.log("Values from refreshToken ", values);
-            //   this._autorize.next(true);
-            //   resolve(values[0]);
-            // }).catch((err) => {
-            //   console.log("Error from set memory refresh token");
-            //   this._autorize.next(false);
-            //   reject(err);
-            // });
           }, (err) => {
             console.log('Error from refresh token');
             // this._autorize.next(false);

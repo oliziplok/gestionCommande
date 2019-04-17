@@ -4,6 +4,7 @@ import {MatDialog, MatSnackBar} from '@angular/material';
 import {AddCommandeComponent} from '../add-commande/add-commande.component';
 import {ClientService} from '../../../services/client/client.service';
 import {SupplierService} from '../../../services/supplier/supplier.service';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-client-home',
@@ -48,7 +49,7 @@ export class ClientHomeComponent implements OnInit {
   ];
 
   constructor(public dialog: MatDialog, private snackBar: MatSnackBar, private clientProvider: ClientService,
-              private supplierService: SupplierService) { }
+              private supplierService: SupplierService, private http: HttpClient) { }
 
   ngOnInit() {
     this.clientProvider.getClientOrdersListing().subscribe((res) => {
@@ -74,5 +75,15 @@ export class ClientHomeComponent implements OnInit {
 
   editOrder(commande) {
     this.supplierService.editOrder(commande);
+  }
+
+  print(commande) {
+    console.log(commande.id);
+    this.http.get('https://gestiondecommandes.langoni.ca/api/order/' + commande.id + '/print/0').subscribe(
+      (res) => {
+        console.log(res);
+      }
+    );
+    // window.open('https://gestiondecommandes.langoni.ca/api/order/' + commande.id + '/print', '_blank');
   }
 }

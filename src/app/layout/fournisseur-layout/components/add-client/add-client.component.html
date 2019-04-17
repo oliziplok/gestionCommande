@@ -2,7 +2,7 @@
 <mat-dialog-content>
   <ngForm [formGroup]="addUserForm">
     <mat-form-field class="example-full-width">
-      <input matInput placeholder="Compagnie" formControlName="company">
+      <input matInput placeholder="Compagnie" formControlName="compagny">
       <!--<mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">-->
       <!--Please enter a valid email address-->
       <!--</mat-error>-->
@@ -14,13 +14,13 @@
       <input matInput placeholder="Courriel" formControlName="email">
     </mat-form-field>
     <mat-form-field class="example-full-width">
-      <input matInput placeholder="Condition d'achat" formControlName="buyCondition">
+      <input matInput placeholder="Condition d'achat" formControlName="buy_condition">
     </mat-form-field>
     <mat-form-field class="example-full-width">
-      <input matInput placeholder="Adresse de facturation" formControlName="recepAddress">
+      <input matInput placeholder="Adresse de facturation" formControlName="rec_adress">
     </mat-form-field>
     <mat-form-field class="example-full-width">
-      <input matInput placeholder="Adresse de livraison" formControlName="shipAddress">
+      <input matInput placeholder="Adresse de livraison" formControlName="ship_adress">
     </mat-form-field>
     <button mat-raised-button color="primary" (click)="fileInput.click()"
             *ngIf="addUserForm.controls['logo'].value === ''">
@@ -39,6 +39,7 @@
     <div mat-dialog-actions align="end">
       <button mat-button mat-dialog-close>Annuler</button>
       <button mat-raised-button color="primary" (click)="onAdd()" [disabled]="!addUserForm.valid">Ajouter</button>
+      <mat-spinner class="spinner-onpost" *ngIf="showLoader"></mat-spinner>
     </div>
   </ngForm>
 </mat-dialog-content>

@@ -33,13 +33,14 @@ export class AddCommandeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.clientSupplier.getProductsAvailableForUser().then((res) => {
+    this.supplierService.getSupplierProducts().subscribe((res) => {
+      console.log(res);
       this.listingProduits = res;
       // const formArray = this.addCommande.controls.produits as FormArray;
       // for (const response of res) {
       //   formArray.push(new FormControl(response, Validators.required));
       // }
-    }).catch((err) => {
+    }, (err) => {
       console.log(err);
     });
   }
@@ -49,7 +50,7 @@ export class AddCommandeComponent implements OnInit {
       idProduct: idR,
       name: nameR,
       format: formatR,
-      qtt: ['', Validators.compose([Validators.required])]
+      Qty: ['', Validators.compose([Validators.required])]
     });
   }
 
@@ -72,7 +73,7 @@ export class AddCommandeComponent implements OnInit {
   onAdd() {
     console.log(this.addCommande);
     this.showLoader = true;
-    this.supplierService.addOrder(this.addCommande).then(() => {
+    this.clientSupplier.addOrder(this.addCommande.value).then(() => {
       this.showLoader = false;
       this.dialogRef.close(true);
     }).catch((err) => {

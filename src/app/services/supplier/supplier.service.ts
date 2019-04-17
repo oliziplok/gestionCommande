@@ -22,18 +22,61 @@ export class SupplierService {
 
   constructor(public http: HttpClient) { }
 
-  addClient(body) {
-    let params = new HttpParams();
-    params = params.append('idSupplier', '1');
+  private fetchSupplierClients() {
+    this.http.get(this.basicUrl + '/api/supplier/' + this.supplierId + '/client').subscribe((res: any) => {
+      console.log(res);
+      this.dataStore.clients = res;
+      this.clientsSubscriber.next(res);
+    }, (err) => {
+      console.log(err);
+    });
+  }
 
+  addClient(body) {
+    console.log(body);
+    body.logo = 'https://staging.andros.ch/admin/wp-content/uploads/2018/03/banane.png';
     return new Promise<any>((resolve, reject) => {
-      this.http.post(this.basicUrl + '/api/createClient.php', body).subscribe((res) => {
-        console.log(res);
+      this.http.post(this.basicUrl + '/api/supplier/' + this.supplierId + '/client', body).subscribe((res) => {
+        // console.log(res);
+        this.fetchSupplierClients();
         resolve(res);
       }, (err) => {
         console.log(err);
         reject(err);
       });
+    });
+  }
+
+  editClient(user) {
+    console.log(user);
+    const body = this.transformSelectClient(user);
+    this.http.put(this.basicUrl + '/api/supplier/' + this.supplierId + '/client/' + user.idClient, body).subscribe((res) => {
+      console.log(res);
+      this.fetchSupplierClients();
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  private transformSelectClient(user) {
+    const newUser: any = {};
+    newUser.name = user.nom;
+    newUser.compagny = user.compagnie;
+    newUser.email = user.courriel;
+    newUser.buy_condition = user.condition_achat;
+    newUser.rec_adress = user.adresseFacturation;
+    newUser.ship_adress = user.adresseLivraison;
+    newUser.logo = user.logo;
+
+    return newUser;
+  }
+
+  deleteClient(user) {
+    this.http.delete(this.basicUrl + '/api/supplier/' + this.supplierId + '/client/' + user.idClient).subscribe((res) => {
+      console.log(res);
+      this.fetchSupplierClients();
+    }, (err) => {
+      console.log(err);
     });
   }
 
@@ -61,28 +104,6 @@ export class SupplierService {
     return this.clientsSubscriber.asObservable();
   }
 
-  private fetchSupplierClients() {
-    this.http.get(this.basicUrl + '/api/supplier/' + this.supplierId + '/client').subscribe((res: any) => {
-      console.log(res);
-      this.dataStore.clients = res;
-      this.clientsSubscriber.next(res);
-    }, (err) => {
-      console.log(err);
-    });
-  }
-
-  getSupplierClientById() {
-    return new Promise<any>((resolve, reject) => {
-      this.http.get(this.basicUrl + '/api/createClient.php').subscribe((res) => {
-        console.log(res);
-        resolve(res);
-      }, (err) => {
-        console.log(err);
-        reject(err);
-      });
-    });
-  }
-
   getSupplierUsersListing() {
     if (this.dataStore.users.length === 0) {
       this.fetchSupplierUsers();
@@ -98,18 +119,6 @@ export class SupplierService {
       console.log(res);
     }, (err) => {
       console.log(err);
-    });
-  }
-
-  getSupplierUserById() {
-    return new Promise<any>((resolve, reject) => {
-      this.http.get(this.basicUrl + '/api/createClient.php').subscribe((res) => {
-        console.log(res);
-        resolve(res);
-      }, (err) => {
-        console.log(err);
-        reject(err);
-      });
     });
   }
 
@@ -148,9 +157,8 @@ export class SupplierService {
     const body = this.transformOrderForAPI(commande);
 
     return new Promise<any>((resolve, reject) => {
-      this.http.post(this.basicUrl + '/api/supplier/' + this.supplierId + '/order', body).subscribe((res:any) => {
-        this.dataStore.orders = res;
-        this.orderSubscriber.next(res);
+      this.http.post(this.basicUrl + '/api/supplier/' + this.supplierId + '/order', body).subscribe((res: any) => {
+        this.fetchOrders();
         resolve(res);
         console.log(res);
       }, (err) => {
@@ -164,13 +172,14 @@ export class SupplierService {
     const actualOrder = order.value;
     const body: any = {
       produits: [],
-      fkidClient: actualOrder.fkidClient
+      fkidClient: actualOrder.fkidClient,
+      fkidSupplier: 1
     };
     body.commentaire = actualOrder.commentaire;
     for (const produitFromOrder of actualOrder.produits) {
       const produitToPush = {
-        fkidProduct: produitFromOrder.idProduct,
-        quantite: produitFromOrder.qtt
+        idProduct: produitFromOrder.idProduct,
+        quantite: produitFromOrder.Qty
       };
       body.produits.push(produitToPush);
     }
@@ -178,7 +187,12 @@ export class SupplierService {
   }
 
   editOrder(commande): Promise<any> {
-    const body = {};
+    const body = {
+      commentaire: '',
+      done: '',
+      fkidClient: '',
+      produits: [],
+    };
 
     return new Promise((resolve, reject) => {
       this.http.put(this.basicUrl + '/api/supplier/' + this.supplierId + '/order/' + commande.id, body)
@@ -189,6 +203,98 @@ export class SupplierService {
         resolve(res);
       }, (err) => {
         reject(err);
+        console.log(err);
+      });
+    });
+  }
+
+  addProduct(product): Promise<any> {
+    return new Promise((resolve, reject) => {
+      console.log(product);
+      product.logo = 'https://staging.andros.ch/admin/wp-content/uploads/2018/03/banane.png';
+      this.http.post(this.basicUrl + '/api/supplier/' + this.supplierId + '/product', product).subscribe((res) => {
+        this.fetchProducts();
+        resolve();
+        console.log(res);
+      }, (err) => {
+        reject(err);
+        console.log(err);
+      });
+    });
+  }
+
+  editProduct(product) {
+    console.log(product);
+    this.http.put(this.basicUrl + '/api/supplier/' + this.supplierId + '/product/' + product.idProduct, product).subscribe((res) => {
+      this.fetchProducts();
+      console.log(res);
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  deleteProduct(commande) {
+    this.http.delete(this.basicUrl + '/api/supplier/' + this.supplierId + '/order/' + commande.idProduct)
+      .subscribe((res: any) => {
+        // this.dataStore.orders = res;
+        // this.orderSubscriber.next(res);
+        this.fetchProducts();
+        console.log(res);
+      }, (err) => {
+        console.log(err);
+      });
+  }
+
+  createNewUser(body): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.basicUrl + '/api/supplier/' + this.supplierId + '/user', body)
+        .subscribe((res: any) => {
+        this.fetchSupplierUsers();
+        // this.dataStore.orders = res;
+        // this.ordersSubscriber.next(res);
+        console.log(res);
+        resolve(res);
+      }, (err) => {
+        reject(err);
+        console.log(err);
+      });
+    });
+  }
+
+  changePassword(user, formUser): Promise<any> {
+    const body = {
+      username: formUser.username,
+      password: formUser.password
+    };
+
+    return new Promise((resolve, reject) => {
+      this.http.put(this.basicUrl + '/api/supplier/' + this.supplierId + '/user/' + user.id, body)
+        .subscribe((res: any) => {
+          console.log(res);
+          resolve(res);
+        }, (err) => {
+          reject(err);
+          console.log(err);
+        });
+    });
+  }
+
+  deleteUser(userId): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.delete(this.basicUrl + '/api/supplier/' + this.supplierId + '/user/' + userId)
+        .subscribe((res: any) => {
+
+        // for (let i = 0; i < this.dataStore.users.length; i ++) {
+        //   if (this.dataStore.users[i].id === userId) {
+        //     this.dataStore.users.splice(i, 1);
+        //   }
+        // }
+        this.fetchSupplierUsers();
+        // this.usersSubscriber.next(this.dataStore.users);
+        console.log(res);
+        resolve(res);
+      }, (err) => {
+        // reject(err);
         console.log(err);
       });
     });

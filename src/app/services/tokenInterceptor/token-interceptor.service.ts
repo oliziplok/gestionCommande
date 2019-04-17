@@ -21,18 +21,14 @@ export class TokenInterceptorService implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log(request);
     this.token = this.authService.getToken();
-    console.log(this.token);
 
     let newReq = null;
     if (request.url !== 'https://gestiondecommandes.langoni.ca/oauth/token.php') {
-      console.log('trigger');
       let headers = new HttpHeaders();
       headers = headers.set('Authorization', 'Bearer ' + this.token);
       // headers = headers.set('Access-Control-Allow-Headers', '*');
       newReq = request.clone({headers});
-      console.log(newReq);
     } else {
       newReq = request.clone();
     }

@@ -5,21 +5,21 @@
   <div class="listing-container">
     <mat-accordion *ngIf="commandes !== undefined && commandes.length !== 0; else nothingToShow">
       <mat-expansion-panel *ngFor="let commande of commandes" [hideToggle]="commande.status === '1'">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{commande.user}}
+        <mat-expansion-panel-header class="panel-container">
+          <mat-panel-title class="panel-item">
+            {{commande.nom}}
           </mat-panel-title>
-          <mat-panel-description>
-           {{commande.date}}
+          <mat-panel-description class="panel-item">
+           {{commande.orderDate}}
           </mat-panel-description>
-          <mat-panel-description>
+          <mat-panel-description class="panel-item">
             #{{commande.id}}
           </mat-panel-description>
           <mat-icon *ngIf="commande.status === '1'" color="primary">done</mat-icon>
         </mat-expansion-panel-header>
         <div *ngFor="let produit of commande.produits" class="product-row">
           <p>{{produit.nom}}</p>
-          <p>{{produit.quantite}}</p>
+          <p>{{produit.Qty}}</p>
         </div>
         <div *ngIf="commande.commentaire !== undefined || commande.commentaire !== ''"
              class="commande-commentaire">

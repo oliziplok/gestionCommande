@@ -62,6 +62,16 @@ export class ClientsComponent implements OnInit {
     });
   }
 
+  onEdit() {
+    this.supplierService.editClient(this.clientSelect);
+    this.editClient = false;
+  }
+
+  onDelete() {
+    this.supplierService.deleteClient(this.clientSelect);
+    this.editClient = false;
+  }
+
   onClientClick(client) {
     this.clientSelect = client;
   }

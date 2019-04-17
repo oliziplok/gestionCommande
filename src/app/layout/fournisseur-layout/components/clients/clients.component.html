@@ -24,7 +24,7 @@
               <img [src]="client.logo" class="image-clicked" appImageLoader="assets/imgs/logo.png">
             </div>
             <div class="client-description">
-              <p class="client-name">{{client.nom}}</p>
+              <p class="client-name">{{client.compagnie}}</p>
               <p class="commandes">{{ client.nb_commande }} <span *ngIf="client.nb_commande <= 1">commande</span>
                 <span *ngIf="client.nb_commande > 1">commandes</span></p>
             </div>
@@ -44,7 +44,7 @@
             <img [src]="clientSelect.logo" appImageLoader="assets/imgs/logo.png">
           </div>
           <div class="card-title">
-            <h1>{{clientSelect.nom}}</h1>
+            <h1>{{clientSelect.compagnie}}</h1>
             <!--<h4>{{clientSelect.name}}</h4>-->
             <p class="light-text">{{clientSelect.courriel}}</p>
           </div>
@@ -53,7 +53,11 @@
                     *ngIf="!editClient">
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-raised-button color="primary" (click)="editClient = false"
+            <button mat-raised-button color="warn" (click)="onDelete()"
+                    *ngIf="editClient">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-raised-button color="primary" (click)="onEdit()"
                     *ngIf="editClient">
               <mat-icon>save</mat-icon>
             </button>
@@ -65,7 +69,7 @@
             <div class="detail-tilte">
                Nom:
             </div>
-            <input matInput [value]="clientSelect.nom" style="width: auto" [disabled]="!editClient">
+            <input matInput [(ngModel)]="clientSelect.nom" style="width: auto" [disabled]="!editClient">
             <!--<div class="detail-info">-->
             <!--{{ clientSelect.first_name }} {{ clientSelect.last_name }}-->
             <!--</div>-->
@@ -74,7 +78,7 @@
             <div class="detail-tilte">
                Courriel:
             </div>
-            <input matInput [value]="clientSelect.courriel" style="width: auto" [disabled]="!editClient">
+            <input matInput [(ngModel)]="clientSelect.courriel" style="width: auto" [disabled]="!editClient">
             <!--<div class="detail-info">-->
             <!--{{ clientSelect.email }}-->
             <!--</div>-->
@@ -83,7 +87,7 @@
             <div class="detail-tilte">
                Condition d'achat:
             </div>
-            <input matInput [value]="clientSelect.condition_achat" style="width: auto" [disabled]="!editClient">
+            <input matInput [(ngModel)]="clientSelect.condition_achat" style="width: auto" [disabled]="!editClient">
             <!--<div class="detail-info">-->
             <!--{{ clientSelect.buy_condition }}-->
             <!--</div>-->
@@ -92,7 +96,7 @@
             <div class="detail-tilte">
                Adresse de facturation:
             </div>
-            <input matInput [value]="clientSelect.adresseFacturation" style="width: auto" [disabled]="!editClient">
+            <input matInput [(ngModel)]="clientSelect.adresseFacturation" style="width: auto" [disabled]="!editClient">
             <!--<div class="detail-info">-->
             <!--{{ clientSelect.rec_adress }}-->
             <!--</div>-->
@@ -104,7 +108,7 @@
             <!--<div class="detail-info">-->
             <!--{{ clientSelect.ship_adress }}-->
             <!--</div>-->
-            <input matInput [value]="clientSelect.adresseLivraison" style="width: auto" [disabled]="!editClient">
+            <input matInput [(ngModel)]="clientSelect.adresseLivraison" style="width: auto" [disabled]="!editClient">
             <!--<mat-icon>folder</mat-icon>-->
           </div>
         </div>
