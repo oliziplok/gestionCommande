@@ -61,12 +61,12 @@ export class AddCommandeComponent implements OnInit {
     for (let i = 0; i < items.controls.length; i++) {
       console.log(items.controls[i].value.idProduct);
       console.log(produitRecu);
-      if (items.controls[i].value.idProduct === produitRecu.idProduct) {
+      if (items.controls[i].value.idProduct === produitRecu.id) {
         items.removeAt(i);
         return;
       }
     }
-    items.push(this.createItem(produitRecu.idProduct, produitRecu.nom, produitRecu.format));
+    items.push(this.createItem(produitRecu.id, produitRecu.nom, produitRecu.format));
     console.log(this.addCommande.controls.produits);
   }
 

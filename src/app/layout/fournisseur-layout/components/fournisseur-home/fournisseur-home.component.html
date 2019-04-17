@@ -27,8 +27,8 @@
           {{commande.commentaire}}
         </div>
         <mat-action-row>
-          <button mat-button color="light" (click)="prevStep()">Imprimer</button>
-          <button mat-button color="primary" (click)="nextStep()" [disabled]="commande.status === '1'">Terminer</button>
+          <!--<button mat-button color="light" (click)="prevStep()">Imprimer</button>-->
+          <button mat-button color="primary" (click)="onOrderDone(commande)" [disabled]="commande.status === '1'">Terminer</button>
         </mat-action-row>
       </mat-expansion-panel>
     </mat-accordion>

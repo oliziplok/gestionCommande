@@ -8,7 +8,7 @@ import {AuthenticationService} from '../authentication/authentication.service';
 export class ClientService {
 
   basicUrl = 'https://gestiondecommandes.langoni.ca';
-  userId = 1;
+  userId;
   ordersSubscriber: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   usersSubscriber: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   dataStore = {
@@ -16,7 +16,9 @@ export class ClientService {
     users: []
   };
 
-  constructor(public http: HttpClient, private auth: AuthenticationService) {}
+  constructor(public http: HttpClient, private auth: AuthenticationService) {
+    this.userId = this.auth.getUserFkId();
+  }
 
   getListingClientsUsers(): Observable<any> {
     if(this.dataStore.users.length === 0) {
@@ -132,7 +134,7 @@ export class ClientService {
 
   deleteUser(userId): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.delete(this.basicUrl + '/api/client/' + this.userId + '/user/' + userId).subscribe((res: any) => {
+      this.http.delete(this.basicUrl + '/api/user/' + userId).subscribe((res: any) => {
 
         // for (let i = 0; i < this.dataStore.users.length; i ++) {
         //   if (this.dataStore.users[i].id === userId) {

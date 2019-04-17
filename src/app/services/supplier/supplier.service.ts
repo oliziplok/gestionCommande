@@ -34,7 +34,7 @@ export class SupplierService {
 
   addClient(body) {
     console.log(body);
-    body.logo = 'https://staging.andros.ch/admin/wp-content/uploads/2018/03/banane.png';
+    body.logo = 'http://www.logospng.com/images/144/vector-green-spoon-food-logo-download-logos-free-144324.png';
     return new Promise<any>((resolve, reject) => {
       this.http.post(this.basicUrl + '/api/supplier/' + this.supplierId + '/client', body).subscribe((res) => {
         // console.log(res);
@@ -187,31 +187,45 @@ export class SupplierService {
   }
 
   editOrder(commande): Promise<any> {
-    const body = {
-      commentaire: '',
-      done: '',
-      fkidClient: '',
-      produits: [],
-    };
+    const newBody = this.transformOrderPut(commande);
+    console.log(newBody);
 
     return new Promise((resolve, reject) => {
-      this.http.put(this.basicUrl + '/api/supplier/' + this.supplierId + '/order/' + commande.id, body)
+      this.http.put(this.basicUrl + '/api/supplier/' + this.supplierId + '/order/' + commande.id, newBody)
         .subscribe((res: any) => {
-        this.dataStore.orders = res;
-        this.orderSubscriber.next(res);
-        console.log(res);
-        resolve(res);
+        // this.dataStore.orders = res;
+        // this.orderSubscriber.next(res);
+          this.fetchOrders();
+          console.log(res);
+          resolve(res);
       }, (err) => {
-        reject(err);
+        // reject(err);
         console.log(err);
       });
     });
   }
 
+  private transformOrderPut(commande) {
+    const newBody = {
+      commentaire: commande.commentaire,
+      done: 1,
+      fkidClient: commande.fkidClient,
+      // fkidSupplier: commande.fkidSupplier,
+      // nom: commande.nom,
+      idOrder: commande.id,
+      orderDate: commande.orderDate,
+      Produits: commande.produits,
+      user: commande.user,
+      status: 1,
+    };
+
+    return newBody;
+  }
+
   addProduct(product): Promise<any> {
     return new Promise((resolve, reject) => {
       console.log(product);
-      product.logo = 'https://staging.andros.ch/admin/wp-content/uploads/2018/03/banane.png';
+      product.logo = 'http://www.logospng.com/images/144/vector-green-spoon-food-logo-download-logos-free-144324.png';
       this.http.post(this.basicUrl + '/api/supplier/' + this.supplierId + '/product', product).subscribe((res) => {
         this.fetchProducts();
         resolve();
@@ -225,7 +239,8 @@ export class SupplierService {
 
   editProduct(product) {
     console.log(product);
-    this.http.put(this.basicUrl + '/api/supplier/' + this.supplierId + '/product/' + product.idProduct, product).subscribe((res) => {
+    const newBody = this.transformProduct(product);
+    this.http.put(this.basicUrl + '/api/supplier/' + this.supplierId + '/product/' + product.id, newBody).subscribe((res) => {
       this.fetchProducts();
       console.log(res);
     }, (err) => {
@@ -233,8 +248,23 @@ export class SupplierService {
     });
   }
 
+  transformProduct(product) {
+    const newProduct = {
+      nom: product.nom,
+      logo: product.logo,
+      price: product.prix,
+      description: product.description,
+      origine: product.origine,
+      code: product.code,
+      format: product.format
+    };
+
+    return newProduct;
+  }
+
   deleteProduct(commande) {
-    this.http.delete(this.basicUrl + '/api/supplier/' + this.supplierId + '/order/' + commande.idProduct)
+    console.log(commande);
+    this.http.delete(this.basicUrl + '/api/supplier/' + this.supplierId + '/product/' + commande.idProduct)
       .subscribe((res: any) => {
         // this.dataStore.orders = res;
         // this.orderSubscriber.next(res);
@@ -281,7 +311,7 @@ export class SupplierService {
 
   deleteUser(userId): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.delete(this.basicUrl + '/api/supplier/' + this.supplierId + '/user/' + userId)
+      this.http.delete(this.basicUrl + '/api/user/' + userId)
         .subscribe((res: any) => {
 
         // for (let i = 0; i < this.dataStore.users.length; i ++) {

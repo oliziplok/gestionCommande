@@ -56,4 +56,7 @@ export class FournisseurHomeComponent implements OnInit {
     });
   }
 
+  onOrderDone(commande) {
+    this.supplierService.editOrder(commande);
+  }
 }

@@ -11,11 +11,11 @@
       </div>
     </div>
     <div class="clients-listing-container">
-      <div class="recherche-container">
-        <mat-form-field style="width: 100%">
-          <input matInput placeholder="Recherche">
-        </mat-form-field>
-      </div>
+      <!--<div class="recherche-container">-->
+        <!--<mat-form-field style="width: 100%">-->
+          <!--<input matInput placeholder="Recherche">-->
+        <!--</mat-form-field>-->
+      <!--</div>-->
       <mat-action-list class="listing-container">
         <div *ngIf="clients !== undefined">
           <mat-list-item *ngFor="let client of clients" style="height: 70px" (click)="onClientClick(client)">
@@ -25,8 +25,8 @@
             </div>
             <div class="client-description">
               <p class="client-name">{{client.compagnie}}</p>
-              <p class="commandes">{{ client.nb_commande }} <span *ngIf="client.nb_commande <= 1">commande</span>
-                <span *ngIf="client.nb_commande > 1">commandes</span></p>
+              <!--<p class="commandes">{{ client.nb_commande }} <span *ngIf="client.nb_commande <= 1">commande</span>-->
+                <!--<span *ngIf="client.nb_commande > 1">commandes</span></p>-->
             </div>
             <!--</div>-->
             <!--<hr style="width: 100%">-->
