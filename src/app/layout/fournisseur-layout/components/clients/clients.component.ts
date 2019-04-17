@@ -63,7 +63,7 @@ export class ClientsComponent implements OnInit {
   }
 
   onEdit() {
-    this.supplierService.editClient(this.clientSelect);
+    // this.supplierService.editClient(this.clientSelect);
     this.editClient = false;
   }
 

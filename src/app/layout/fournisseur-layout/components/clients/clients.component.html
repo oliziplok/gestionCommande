@@ -59,7 +59,7 @@
             </button>
             <button mat-raised-button color="primary" (click)="onEdit()"
                     *ngIf="editClient">
-              <mat-icon>save</mat-icon>
+              <mat-icon>done</mat-icon>
             </button>
           </div>
         </div>
@@ -69,7 +69,7 @@
             <div class="detail-tilte">
                Nom:
             </div>
-            <input matInput [(ngModel)]="clientSelect.nom" style="width: auto" [disabled]="!editClient">
+            <input matInput [(ngModel)]="clientSelect.nom" style="width: auto" disabled>
             <!--<div class="detail-info">-->
             <!--{{ clientSelect.first_name }} {{ clientSelect.last_name }}-->
             <!--</div>-->
@@ -78,7 +78,7 @@
             <div class="detail-tilte">
                Courriel:
             </div>
-            <input matInput [(ngModel)]="clientSelect.courriel" style="width: auto" [disabled]="!editClient">
+            <input matInput [(ngModel)]="clientSelect.courriel" style="width: auto" disabled>
             <!--<div class="detail-info">-->
             <!--{{ clientSelect.email }}-->
             <!--</div>-->
@@ -87,7 +87,7 @@
             <div class="detail-tilte">
                Condition d'achat:
             </div>
-            <input matInput [(ngModel)]="clientSelect.condition_achat" style="width: auto" [disabled]="!editClient">
+            <input matInput [(ngModel)]="clientSelect.condition_achat" style="width: auto" disabled>
             <!--<div class="detail-info">-->
             <!--{{ clientSelect.buy_condition }}-->
             <!--</div>-->
@@ -96,7 +96,7 @@
             <div class="detail-tilte">
                Adresse de facturation:
             </div>
-            <input matInput [(ngModel)]="clientSelect.adresseFacturation" style="width: auto" [disabled]="!editClient">
+            <input matInput [(ngModel)]="clientSelect.adresseFacturation" style="width: auto" disabled>
             <!--<div class="detail-info">-->
             <!--{{ clientSelect.rec_adress }}-->
             <!--</div>-->
@@ -108,7 +108,7 @@
             <!--<div class="detail-info">-->
             <!--{{ clientSelect.ship_adress }}-->
             <!--</div>-->
-            <input matInput [(ngModel)]="clientSelect.adresseLivraison" style="width: auto" [disabled]="!editClient">
+            <input matInput [(ngModel)]="clientSelect.adresseLivraison" style="width: auto" disabled>
             <!--<mat-icon>folder</mat-icon>-->
           </div>
         </div>

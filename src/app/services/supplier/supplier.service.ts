@@ -264,7 +264,7 @@ export class SupplierService {
 
   deleteProduct(commande) {
     console.log(commande);
-    this.http.delete(this.basicUrl + '/api/supplier/' + this.supplierId + '/product/' + commande.idProduct)
+    this.http.delete(this.basicUrl + '/api/supplier/' + this.supplierId + '/product/' + commande.id)
       .subscribe((res: any) => {
         // this.dataStore.orders = res;
         // this.orderSubscriber.next(res);

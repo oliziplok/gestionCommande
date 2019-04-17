@@ -11,11 +11,11 @@
       </div>
     </div>
     <div class="clients-listing-container">
-      <!--<div class="recherche-container">-->
-        <!--<mat-form-field style="width: 100%">-->
-          <!--<input matInput placeholder="Recherche">-->
-        <!--</mat-form-field>-->
-      <!--</div>-->
+      <div class="recherche-container">
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="Recherche">
+        </mat-form-field>
+      </div>
       <mat-action-list class="listing-container">
         <div *ngIf="products !== undefined">
           <mat-list-item *ngFor="let product of products" style="height: 70px" (click)="onProductClick(product)">
