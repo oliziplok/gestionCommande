@@ -4,6 +4,7 @@ import {ClientService} from '../../../services/client/client.service';
 import {MatDialogRef} from '@angular/material';
 import {SupplierService} from '../../../services/supplier/supplier.service';
 import {AuthenticationService} from '../../../services/authentication/authentication.service';
+import {ErrorPrompService} from '../../../services/errorPromp/error-promp.service';
 
 @Component({
   selector: 'app-add-commande',
@@ -17,7 +18,8 @@ export class AddCommandeComponent implements OnInit {
   showLoader = false;
 
   constructor(public formBuilder: FormBuilder, public clientSupplier: ClientService, private supplierService: SupplierService,
-              private dialogRef: MatDialogRef<AddCommandeComponent>, private authService: AuthenticationService) {
+              private dialogRef: MatDialogRef<AddCommandeComponent>, private authService: AuthenticationService,
+              private errorPrompt: ErrorPrompService) {
     this.addCommande = formBuilder.group({
       // company: ['', Validators.compose([Validators.required])],
       // name: ['', Validators.compose([Validators.required])],
@@ -78,6 +80,7 @@ export class AddCommandeComponent implements OnInit {
       this.dialogRef.close(true);
     }).catch((err) => {
       console.log(err);
+      this.errorPrompt.openError(err.statusText);
       this.showLoader = false;
     });
   }

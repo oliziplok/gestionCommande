@@ -4,6 +4,7 @@ import {ClientService} from '../../../services/client/client.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {SupplierService} from '../../../services/supplier/supplier.service';
 import {AuthenticationService} from '../../../services/authentication/authentication.service';
+import {ErrorPrompService} from '../../../services/errorPromp/error-promp.service';
 
 @Component({
   selector: 'app-client-add-user',
@@ -20,7 +21,7 @@ export class ClientAddUserComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private clientService: ClientService,
               private supplierService: SupplierService,
               private dialogRef: MatDialogRef<ClientAddUserComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+              @Inject(MAT_DIALOG_DATA) public data: any, private errorPrompt: ErrorPrompService) {
     console.log(this.data);
     if (this.data.user === undefined) {
       this.addUser = formBuilder.group({
@@ -47,6 +48,7 @@ export class ClientAddUserComponent implements OnInit {
         this.showLoader = false;
         this.dialogRef.close(true);
       }).catch((err) => {
+        this.errorPrompt.openError(err.statusText);
         this.showLoader = false;
       });
     } else {
@@ -54,6 +56,7 @@ export class ClientAddUserComponent implements OnInit {
         this.showLoader = false;
         this.dialogRef.close(true);
       }).catch((err) => {
+        this.errorPrompt.openError(err.statusText);
         this.showLoader = false;
       });
     }
@@ -66,6 +69,7 @@ export class ClientAddUserComponent implements OnInit {
         this.showLoader = false;
         this.dialogRef.close(true);
       }).catch((err) => {
+        this.errorPrompt.openError(err.statusText);
         this.showLoader = false;
       });
     } else {
@@ -73,6 +77,7 @@ export class ClientAddUserComponent implements OnInit {
         this.showLoader = false;
         this.dialogRef.close(true);
       }).catch((err) => {
+        this.errorPrompt.openError(err.statusText);
         this.showLoader = false;
       });
     }

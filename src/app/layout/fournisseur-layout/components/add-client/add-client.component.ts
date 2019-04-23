@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ClientService} from '../../../../services/client/client.service';
 import {SupplierService} from '../../../../services/supplier/supplier.service';
 import {MatDialogRef} from '@angular/material';
+import {ErrorPrompService} from '../../../../services/errorPromp/error-promp.service';
 
 @Component({
   selector: 'app-add-client',
@@ -15,7 +16,7 @@ export class AddClientComponent implements OnInit {
   addUserForm: FormGroup;
 
   constructor(public formBuilder: FormBuilder, private supplierService: SupplierService,
-              private dialogRef: MatDialogRef<AddClientComponent>) {
+              private dialogRef: MatDialogRef<AddClientComponent>, private errorPromp: ErrorPrompService) {
 
     this.addUserForm = formBuilder.group({
       compagny: ['', Validators.compose([Validators.required])],
@@ -69,6 +70,7 @@ export class AddClientComponent implements OnInit {
       this.dialogRef.close();
     }).catch((err) => {
       this.showLoader = false;
+      this.errorPromp.openError(err.statusText);
       console.log(err);
     });
   }

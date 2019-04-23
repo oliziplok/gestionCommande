@@ -37,6 +37,7 @@ import { ClientUtilisateursComponent } from './layout/client-layout/utilisateurs
 import { ClientAddUserComponent } from './layout/client-layout/client-add-user/client-add-user.component';
 import { ListeProduitsClientComponent } from './layout/client-layout/liste-produits-client/liste-produits-client.component';
 import {TokenInterceptorService} from './services/tokenInterceptor/token-interceptor.service';
+import { ErrorPrompComponent } from './services/errorPromp/error-promp/error-promp.component';
 
 const appRoutes: Routes = [
   {
@@ -146,7 +147,8 @@ const appRoutes: Routes = [
     ClientUsersComponent,
     ClientUtilisateursComponent,
     ClientAddUserComponent,
-    ListeProduitsClientComponent
+    ListeProduitsClientComponent,
+    ErrorPrompComponent
   ],
   imports: [
     BrowserModule,
@@ -171,7 +173,8 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  entryComponents: [AddClientComponent, AddProductComponent, AddCommandeComponent, ClientAddUserComponent],
+  entryComponents: [AddClientComponent, AddProductComponent, AddCommandeComponent, ClientAddUserComponent,
+    ErrorPrompComponent],
   providers: [
     ClientService,
     {

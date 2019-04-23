@@ -3,6 +3,7 @@ import {MatDialog} from '@angular/material';
 import {AddClientComponent} from '../add-client/add-client.component';
 import {ClientService} from '../../../../services/client/client.service';
 import {SupplierService} from '../../../../services/supplier/supplier.service';
+import {ErrorPrompService} from '../../../../services/errorPromp/error-promp.service';
 
 @Component({
   selector: 'app-clients',
@@ -45,7 +46,7 @@ export class ClientsComponent implements OnInit {
   clientSelect: any = {};
   editClient:boolean = false;
 
-  constructor(public dialog: MatDialog, public supplierService: SupplierService) {
+  constructor(public dialog: MatDialog, public supplierService: SupplierService, private errorPrompt: ErrorPrompService) {
     // this.clientSelect = this.clients[0];
   }
 
@@ -63,7 +64,9 @@ export class ClientsComponent implements OnInit {
   }
 
   onEdit() {
-    // this.supplierService.editClient(this.clientSelect);
+    this.supplierService.editClient(this.clientSelect).catch((err) => {
+      this.errorPrompt.openError(err.statusText);
+    });
     this.editClient = false;
   }
 

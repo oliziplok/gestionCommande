@@ -3,6 +3,7 @@ import {AddClientComponent} from '../add-client/add-client.component';
 import {MatDialog} from '@angular/material';
 import {AddProductComponent} from '../add-product/add-product.component';
 import {SupplierService} from '../../../../services/supplier/supplier.service';
+import {ErrorPrompService} from '../../../../services/errorPromp/error-promp.service';
 
 @Component({
   selector: 'app-products',
@@ -11,38 +12,11 @@ import {SupplierService} from '../../../../services/supplier/supplier.service';
 })
 export class ProductsComponent implements OnInit {
 
-  // products = [{
-  //   name: 'John Doe',
-  //   logo: 'http://www.bite.co.nz/images/recipes/Generic_Tomatoes1.jpg?width=1200&height=800&upscale=false',
-  //   price: 34.99,
-  //   origine: 'France',
-  //   code: 'ty56wk7',
-  //   format: 'caisse',
-  //   description: ''
-  // },
-  //   {
-  //     name: 'John Doe',
-  //     logo: 'http://www.bite.co.nz/images/recipes/Generic_Tomatoes1.jpg?width=1200&height=800&upscale=false',
-  //     price: 34.99,
-  //     origine: 'France',
-  //     code: 'ty56wk7',
-  //     format: 'caisse',
-  //     description: ''
-  //   },
-  //   {
-  //     name: 'Tomate',
-  //     logo: 'http://www.bite.co.nz/images/recipes/Generic_Tomatoes1.jpg?width=1200&height=800&upscale=false',
-  //     price: 34.99,
-  //     origine: 'France',
-  //     code: 'ty56wk7',
-  //     format: 'caisse',
-  //     description: 'Voici une description'
-  //   }];
   products = [];
   productSelect = {};
   editProduct = false;
 
-  constructor(public dialog: MatDialog, public productService: SupplierService) {
+  constructor(public dialog: MatDialog, public productService: SupplierService, private errorPrompt: ErrorPrompService) {
     // this.productSelect = this.products[0];
   }
 
@@ -76,7 +50,9 @@ export class ProductsComponent implements OnInit {
   }
 
   onEdit() {
-    this.productService.editProduct(this.productSelect);
+    this.productService.editProduct(this.productSelect).catch((err) => {
+      this.errorPrompt.openError(err.statusText);
+    });
     this.editProduct = false;
   }
 

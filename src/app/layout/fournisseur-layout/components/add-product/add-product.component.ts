@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SupplierService} from '../../../../services/supplier/supplier.service';
 import {MatDialogRef} from '@angular/material';
+import {ErrorPrompService} from '../../../../services/errorPromp/error-promp.service';
 
 @Component({
   selector: 'app-add-product',
@@ -14,7 +15,7 @@ export class AddProductComponent implements OnInit {
   addProductForm: FormGroup;
 
   constructor(formBuilder: FormBuilder, private supplierService: SupplierService,
-              private dialogRef: MatDialogRef<AddProductComponent>) {
+              private dialogRef: MatDialogRef<AddProductComponent>, private errorPrompt: ErrorPrompService) {
     this.addProductForm = formBuilder.group({
       name: ['', Validators.compose([Validators.required])],
       price: ['', Validators.compose([Validators.required])],
@@ -56,6 +57,7 @@ export class AddProductComponent implements OnInit {
       this.showLoader = false;
       this.dialogRef.close();
     }).catch((err) => {
+      this.errorPrompt.openError(err.statusText);
       this.showLoader = false;
       console.log(err);
     });

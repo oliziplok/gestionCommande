@@ -47,14 +47,20 @@ export class SupplierService {
     });
   }
 
-  editClient(user) {
+  editClient(user): Promise<any> {
     console.log(user);
     const body = this.transformSelectClient(user);
-    this.http.put(this.basicUrl + '/api/supplier/' + this.supplierId + '/client/' + user.idClient, body).subscribe((res) => {
-      console.log(res);
-      this.fetchSupplierClients();
-    }, (err) => {
-      console.log(err);
+    console.log(body);
+    return new Promise<any>((resolve, reject) => {
+      this.http.put(this.basicUrl + '/api/supplier/' + this.supplierId + '/client/' + user.idClient, body)
+        .subscribe((res) => {
+        console.log(res);
+        resolve(res);
+        this.fetchSupplierClients();
+      }, (err) => {
+        reject(err);
+        console.log(err);
+      });
     });
   }
 
@@ -66,7 +72,7 @@ export class SupplierService {
     newUser.buy_condition = user.condition_achat;
     newUser.rec_adress = user.adresseFacturation;
     newUser.ship_adress = user.adresseLivraison;
-    newUser.logo = user.logo;
+    // newUser.logo = user.logo;
 
     return newUser;
   }
@@ -214,10 +220,20 @@ export class SupplierService {
       // nom: commande.nom,
       idOrder: commande.id,
       orderDate: commande.orderDate,
-      Produits: commande.produits,
+      // Produits: commande.produits,
       user: commande.user,
-      status: 1,
+      // status: 1,
     };
+
+    // const newProduits = [];
+    // for (const produit of commande.produits) {
+    //     const newProduit = {
+    //       id: produit.fkidProduct,
+    //       nom: produit.nom,
+    //       Qty: produit.Qty
+    //     };
+    //     newProduits.push(newProduit);
+    // }
 
     return newBody;
   }
@@ -237,14 +253,19 @@ export class SupplierService {
     });
   }
 
-  editProduct(product) {
+  editProduct(product): Promise<any> {
     console.log(product);
     const newBody = this.transformProduct(product);
-    this.http.put(this.basicUrl + '/api/supplier/' + this.supplierId + '/product/' + product.id, newBody).subscribe((res) => {
-      this.fetchProducts();
-      console.log(res);
-    }, (err) => {
-      console.log(err);
+    return new Promise<any>((resolve, reject) => {
+      this.http.put(this.basicUrl + '/api/supplier/' + this.supplierId + '/product/' + product.id, newBody)
+        .subscribe((res) => {
+        this.fetchProducts();
+        resolve(res);
+        console.log(res);
+      }, (err) => {
+          reject(err);
+          console.log(err);
+      });
     });
   }
 
