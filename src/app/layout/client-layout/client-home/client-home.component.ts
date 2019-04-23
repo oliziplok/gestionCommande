@@ -55,7 +55,6 @@ export class ClientHomeComponent implements OnInit {
     this.clientProvider.getClientOrdersListing().subscribe((res) => {
       this.commandes = res;
     }, (err) => {
-      console.log(err);
     });
   }
 
@@ -65,9 +64,7 @@ export class ClientHomeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
       if (result) {
-        console.log('trigger');
         this.snackBar.open('Commande bien passée', 'Ok', {duration: 2000});
       }
     });
@@ -78,10 +75,8 @@ export class ClientHomeComponent implements OnInit {
   }
 
   print(commande) {
-    console.log(commande.id);
     this.http.get('https://gestiondecommandes.langoni.ca/api/order/' + commande.id + '/print/0').subscribe(
       (res) => {
-        console.log(res);
       }
     );
     // window.open('https://gestiondecommandes.langoni.ca/api/order/' + commande.id + '/print', '_blank');

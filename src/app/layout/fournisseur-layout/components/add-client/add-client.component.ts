@@ -38,7 +38,6 @@ export class AddClientComponent implements OnInit {
 
     reader.addEventListener('load', (event: any) => {
 
-      console.log(event);
       const selectedFile = {
         src: event.target.result,
         file: file
@@ -65,13 +64,11 @@ export class AddClientComponent implements OnInit {
 
     this.showLoader = true;
     this.supplierService.addClient(this.addUserForm.value).then((res) => {
-      console.log(res);
       this.showLoader = false;
       this.dialogRef.close();
     }).catch((err) => {
       this.showLoader = false;
       this.errorPromp.openError(err.statusText);
-      console.log(err);
     });
   }
 }

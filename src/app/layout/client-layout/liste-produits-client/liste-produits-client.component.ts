@@ -19,11 +19,9 @@ export class ListeProduitsClientComponent implements OnInit {
 
   ngOnInit() {
     this.productService.getSupplierProducts().subscribe((res) => {
-      console.log(res);
       this.products = res;
       this.productSelect = this.products[0];
     }, (err) => {
-      console.log(err);
     });
   }
 

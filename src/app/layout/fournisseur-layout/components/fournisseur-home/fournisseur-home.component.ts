@@ -49,10 +49,8 @@ export class FournisseurHomeComponent implements OnInit {
 
   ngOnInit() {
     this.supplierService.getSupplierOrdersListing().subscribe((res) => {
-      console.log(res);
       this.commandes = res;
     }, (err) => {
-      console.log(err);
     });
   }
 

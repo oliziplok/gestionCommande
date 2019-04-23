@@ -24,42 +24,33 @@ export class SupplierService {
 
   private fetchSupplierClients() {
     this.http.get(this.basicUrl + '/api/supplier/' + this.supplierId + '/client').subscribe((res: any) => {
-      console.log(res);
       this.dataStore.clients = res;
       this.clientsSubscriber.next(res);
     }, (err) => {
-      console.log(err);
     });
   }
 
   addClient(body) {
-    console.log(body);
     body.logo = 'http://www.logospng.com/images/144/vector-green-spoon-food-logo-download-logos-free-144324.png';
     return new Promise<any>((resolve, reject) => {
       this.http.post(this.basicUrl + '/api/supplier/' + this.supplierId + '/client', body).subscribe((res) => {
-        // console.log(res);
         this.fetchSupplierClients();
         resolve(res);
       }, (err) => {
-        console.log(err);
         reject(err);
       });
     });
   }
 
   editClient(user): Promise<any> {
-    console.log(user);
     const body = this.transformSelectClient(user);
-    console.log(body);
     return new Promise<any>((resolve, reject) => {
       this.http.put(this.basicUrl + '/api/supplier/' + this.supplierId + '/client/' + user.idClient, body)
         .subscribe((res) => {
-        console.log(res);
         resolve(res);
         this.fetchSupplierClients();
       }, (err) => {
         reject(err);
-        console.log(err);
       });
     });
   }
@@ -79,10 +70,8 @@ export class SupplierService {
 
   deleteClient(user) {
     this.http.delete(this.basicUrl + '/api/supplier/' + this.supplierId + '/client/' + user.idClient).subscribe((res) => {
-      console.log(res);
       this.fetchSupplierClients();
     }, (err) => {
-      console.log(err);
     });
   }
 
@@ -95,11 +84,9 @@ export class SupplierService {
 
   fetchProducts() {
     this.http.get(this.basicUrl + '/api/supplier/' + this.supplierId + '/product').subscribe((res: any) => {
-      console.log(res);
       this.dataStore.products = res;
       this.productsSubscriber.next(res);
     }, (err) => {
-      console.log(err);
     });
   }
 
@@ -119,12 +106,9 @@ export class SupplierService {
 
   private fetchSupplierUsers() {
     this.http.get(this.basicUrl + '/api/supplier/' + this.supplierId + '/user').subscribe((res: any) => {
-      console.log(res);
       this.dataStore.users = res;
       this.usersSubscriber.next(res);
-      console.log(res);
     }, (err) => {
-      console.log(err);
     });
   }
 
@@ -137,39 +121,31 @@ export class SupplierService {
 
   private fetchOrders() {
     this.http.get(this.basicUrl + '/api/supplier/' + this.supplierId + '/order').subscribe((res: any) => {
-      console.log(res);
       this.orderSubscriber.next(res);
       this.dataStore.orders = res;
     }, (err) => {
-      console.log(err);
     });
   }
 
   getSupplierOrderById() {
     return new Promise<any>((resolve, reject) => {
       this.http.get(this.basicUrl + '/api/createClient.php').subscribe((res) => {
-        console.log(res);
         resolve(res);
       }, (err) => {
-        console.log(err);
         reject(err);
       });
     });
   }
 
   addOrder(commande): Promise<any> {
-    console.log(commande);
-    console.log(this.transformOrderForAPI(commande));
     const body = this.transformOrderForAPI(commande);
 
     return new Promise<any>((resolve, reject) => {
       this.http.post(this.basicUrl + '/api/supplier/' + this.supplierId + '/order', body).subscribe((res: any) => {
         this.fetchOrders();
         resolve(res);
-        console.log(res);
       }, (err) => {
         reject(err);
-        console.log(err);
       });
     });
   }
@@ -194,7 +170,6 @@ export class SupplierService {
 
   editOrder(commande): Promise<any> {
     const newBody = this.transformOrderPut(commande);
-    console.log(newBody);
 
     return new Promise((resolve, reject) => {
       this.http.put(this.basicUrl + '/api/supplier/' + this.supplierId + '/order/' + commande.id, newBody)
@@ -202,11 +177,9 @@ export class SupplierService {
         // this.dataStore.orders = res;
         // this.orderSubscriber.next(res);
           this.fetchOrders();
-          console.log(res);
           resolve(res);
       }, (err) => {
         // reject(err);
-        console.log(err);
       });
     });
   }
@@ -240,31 +213,25 @@ export class SupplierService {
 
   addProduct(product): Promise<any> {
     return new Promise((resolve, reject) => {
-      console.log(product);
       product.logo = 'http://www.logospng.com/images/144/vector-green-spoon-food-logo-download-logos-free-144324.png';
       this.http.post(this.basicUrl + '/api/supplier/' + this.supplierId + '/product', product).subscribe((res) => {
         this.fetchProducts();
         resolve();
-        console.log(res);
       }, (err) => {
         reject(err);
-        console.log(err);
       });
     });
   }
 
   editProduct(product): Promise<any> {
-    console.log(product);
     const newBody = this.transformProduct(product);
     return new Promise<any>((resolve, reject) => {
       this.http.put(this.basicUrl + '/api/supplier/' + this.supplierId + '/product/' + product.id, newBody)
         .subscribe((res) => {
         this.fetchProducts();
         resolve(res);
-        console.log(res);
       }, (err) => {
           reject(err);
-          console.log(err);
       });
     });
   }
@@ -284,15 +251,12 @@ export class SupplierService {
   }
 
   deleteProduct(commande) {
-    console.log(commande);
     this.http.delete(this.basicUrl + '/api/supplier/' + this.supplierId + '/product/' + commande.id)
       .subscribe((res: any) => {
         // this.dataStore.orders = res;
         // this.orderSubscriber.next(res);
         this.fetchProducts();
-        console.log(res);
       }, (err) => {
-        console.log(err);
       });
   }
 
@@ -303,11 +267,9 @@ export class SupplierService {
         this.fetchSupplierUsers();
         // this.dataStore.orders = res;
         // this.ordersSubscriber.next(res);
-        console.log(res);
         resolve(res);
       }, (err) => {
         reject(err);
-        console.log(err);
       });
     });
   }
@@ -321,11 +283,9 @@ export class SupplierService {
     return new Promise((resolve, reject) => {
       this.http.put(this.basicUrl + '/api/supplier/' + this.supplierId + '/user/' + user.id, body)
         .subscribe((res: any) => {
-          console.log(res);
           resolve(res);
         }, (err) => {
           reject(err);
-          console.log(err);
         });
     });
   }
@@ -342,11 +302,9 @@ export class SupplierService {
         // }
         this.fetchSupplierUsers();
         // this.usersSubscriber.next(this.dataStore.users);
-        console.log(res);
         resolve(res);
       }, (err) => {
         // reject(err);
-        console.log(err);
       });
     });
   }

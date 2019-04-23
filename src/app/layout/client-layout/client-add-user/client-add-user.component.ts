@@ -22,7 +22,6 @@ export class ClientAddUserComponent implements OnInit {
               private supplierService: SupplierService,
               private dialogRef: MatDialogRef<ClientAddUserComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any, private errorPrompt: ErrorPrompService) {
-    console.log(this.data);
     if (this.data.user === undefined) {
       this.addUser = formBuilder.group({
         username: ['', Validators.required],

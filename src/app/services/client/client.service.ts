@@ -123,11 +123,9 @@ export class ClientService {
         this.fetchClientUser();
         // this.dataStore.orders = res;
         // this.ordersSubscriber.next(res);
-        console.log(res);
         resolve(res);
       }, (err) => {
         reject(err);
-        console.log(err);
       });
     });
   }
@@ -143,11 +141,9 @@ export class ClientService {
         // }
         this.fetchClientUser();
         // this.usersSubscriber.next(this.dataStore.users);
-        console.log(res);
         resolve(res);
       }, (err) => {
-        // reject(err);
-        console.log(err);
+        reject(err);
       });
     });
   }
@@ -161,11 +157,9 @@ export class ClientService {
     return new Promise((resolve, reject) => {
       this.http.put(this.basicUrl + '/api/client/' + this.userId + '/user/' + user.id, body)
         .subscribe((res: any) => {
-        console.log(res);
         resolve(res);
       }, (err) => {
         reject(err);
-        console.log(err);
       });
     });
   }

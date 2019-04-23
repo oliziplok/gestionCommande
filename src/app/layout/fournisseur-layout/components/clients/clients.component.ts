@@ -52,14 +52,12 @@ export class ClientsComponent implements OnInit {
 
   ngOnInit() {
     this.supplierService.getSupplierClientsListing().subscribe((res) => {
-      console.log(res);
       this.clients = res;
       // for (const client of res) {
       //   this.clients.push(client[0]);
       // }
       this.clientSelect = this.clients[0];
     }, (err) => {
-      console.log(err);
     });
   }
 
@@ -85,7 +83,6 @@ export class ClientsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 

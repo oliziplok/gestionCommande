@@ -48,7 +48,6 @@ export class AuthenticationService {
   fetchUser() {
     return new Promise((resolve, reject) => {
       this.http.get(this.basicUrl + '/api/user').subscribe((res) => {
-        console.log(res);
         if (res[0].fkidClient !== null) {
           this.user.id = res[0].fkidClient;
           this.role = 'client';
@@ -59,15 +58,12 @@ export class AuthenticationService {
         this.user.uId = res[0].id;
         resolve(this.role);
       }, (err) => {
-        console.log(err);
         reject(err);
       });
     });
   }
 
   logInAuth(usernameR, passwordR) {
-    console.log('Login trigger');
-
     return new Promise((resolve, reject) => {
 
       const bodyTest = {
@@ -89,7 +85,6 @@ export class AuthenticationService {
           const token = data.access_token;
           const refresh_token = data.refresh_token;
 
-          console.log(res);
           this.actualToken = token;
           this.actualRefreshToken = refresh_token;
 
@@ -100,7 +95,6 @@ export class AuthenticationService {
             reject(err);
           });
         }, (err) => {
-          console.log('Trigger error login: ', err);
           reject(err);
         });
 
@@ -122,7 +116,6 @@ export class AuthenticationService {
 
         this.http.post(this.basicUrl + '/oauth/token.php', bodyTest,{headers: headers})
           .subscribe((res: any) => {
-            console.log('Result from refresh ', res);
 
             const data: any = res;
             const token = data.access_token;
@@ -133,7 +126,6 @@ export class AuthenticationService {
             resolve(this.actualToken);
 
           }, (err) => {
-            console.log('Error from refresh token');
             // this._autorize.next(false);
             reject(err);
           });

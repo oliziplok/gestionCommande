@@ -35,17 +35,13 @@ export class TokenInterceptorService implements HttpInterceptor {
 
     return next.handle(newReq).pipe(tap(
       (res: any) => {
-        console.log(res);
       }
     ), catchError(
       (err) => {
-        console.log(err);
         if (err instanceof HttpErrorResponse) {
           if (err.status === 401) {
 
             return from(this.authService.refreshToken()).pipe(mergeMap((res: any) => {
-
-              console.log('response from refresh to inteceptor', res);
 
               const newRequest = request.clone({
                 setHeaders: {
@@ -53,13 +49,11 @@ export class TokenInterceptorService implements HttpInterceptor {
                 }
               });
 
-              console.log('Sending new request');
               // this.actuallyRefreshing = false;
               return next.handle(newRequest);
 
             }), catchError((error) => {
               // this.actuallyRefreshing = false;
-              console.log('error auth interceptor', error);
               this.logOut();
               return throwError(error);
             }));

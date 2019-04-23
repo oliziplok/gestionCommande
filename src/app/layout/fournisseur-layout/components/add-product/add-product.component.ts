@@ -36,7 +36,6 @@ export class AddProductComponent implements OnInit {
 
     reader.addEventListener('load', (event: any) => {
 
-      console.log(event);
       const selectedFile = {
         src: event.target.result,
         file: file
@@ -59,7 +58,6 @@ export class AddProductComponent implements OnInit {
     }).catch((err) => {
       this.errorPrompt.openError(err.statusText);
       this.showLoader = false;
-      console.log(err);
     });
   }
 }

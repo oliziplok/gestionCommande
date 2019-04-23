@@ -23,18 +23,15 @@ export class ClientUtilisateursComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.router.url);
     if (this.router.url.includes('fournisseur')) {
       this.supplierService.getSupplierUsersListing().subscribe((res) => {
         this.users = res;
       }, (err) => {
-        console.log(err);
       });
     } else if (this.router.url.includes('client')) {
       this.clientProvider.getListingClientsUsers().subscribe((res) => {
         this.users = res;
       }, (err) => {
-        console.log(err);
       });
     }
   }
@@ -48,7 +45,6 @@ export class ClientUtilisateursComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
       if (result) {
         this.snackBar.open('Utilisateur ajouté', 'Ok', {duration: 2000});
       }
@@ -73,7 +69,6 @@ export class ClientUtilisateursComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
       if (result) {
         this.snackBar.open('Utilisateur ajouté', 'Ok', {duration: 2000});
       }

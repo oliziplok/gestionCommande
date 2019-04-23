@@ -18,10 +18,8 @@ export class LoginComponent implements OnInit {
   }
 
   logIn() {
-    console.log(this.usrn, this.password);
     this.authService.logInAuth(this.usrn, this.password).then((res) => {
       if (res === 'client') {
-        console.log('trigger');
         this.router.navigate(['client/home']);
       } else if (res === 'fournisseur') {
         this.router.navigate(['fournisseur/home']);
