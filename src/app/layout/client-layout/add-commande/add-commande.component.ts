@@ -47,6 +47,10 @@ export class AddCommandeComponent implements OnInit {
     });
   }
 
+  getControls(frmGrp: FormGroup, key: string) {
+    return (<FormArray> frmGrp.controls[key]).controls;
+  }
+
   createItem(idR, nameR, formatR): FormGroup {
     return this.formBuilder.group({
       idProduct: idR,

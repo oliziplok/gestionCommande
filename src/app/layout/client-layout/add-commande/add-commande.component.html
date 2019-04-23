@@ -18,7 +18,7 @@
     </mat-form-field>
     <mat-list *ngIf="addCommande.controls['produits'].value.length !== 0">
       <div formArrayName="produits">
-        <div *ngFor="let produit of addCommande.get('produits').controls; let i = index">
+        <div *ngFor="let produit of getControls(addCommande, 'produits'); let i = index">
           <div [formGroupName]="i">
             <mat-list-item class="produit-commande-container">
               <span style="display: flex">{{produit.controls.name.value}}
@@ -33,7 +33,7 @@
         </div>
       </div>
     </mat-list>
-    <mat-form-field class="example-full-width" *ngIf="addCommande.get('produits').controls.length > 0">
+    <mat-form-field class="example-full-width" *ngIf="getControls(addCommande, 'produits').length > 0">
       <input matInput #message maxlength="256" placeholder="Commentaire" formControlName="commentaire">
       <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
     </mat-form-field>
